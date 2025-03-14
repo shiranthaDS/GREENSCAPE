@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
+
+const appointmentRoutes = require("./routes/appointmentRoutes");
+
 // Load environment variables from .env
 dotenv.config();
 
@@ -29,3 +32,5 @@ app.get("/", (req, res) => {
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// Routes
+app.use("/api/appointments", appointmentRoutes);
