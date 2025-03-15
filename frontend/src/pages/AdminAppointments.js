@@ -38,6 +38,21 @@ const AdminAppointments = () => {
     }
   };
 
+  const handleDeleteClick = async (id) => {
+    try {
+      await fetch(`http://localhost:5000/api/appointments/${id}`, {
+        method: "DELETE",
+      });
+
+      // Remove the deleted appointment from the state
+      setAppointments((prevAppointments) =>
+        prevAppointments.filter((appt) => appt._id !== id)
+      );
+    } catch (error) {
+      console.error("Error deleting appointment:", error);
+    }
+  };
+
   const handleEditClick = (appointment) => {
     setSelectedAppointment(appointment);
     setFormData({
@@ -108,7 +123,7 @@ const AdminAppointments = () => {
         <thead>
           <tr>
             <th>App ID</th>
-            <th>Customer Info</th>
+            <th>Customer Info</th> 
             <th>City</th>
             <th>Service</th>
             <th>Site Visit</th>
@@ -124,8 +139,10 @@ const AdminAppointments = () => {
                 <strong>Name:</strong> {appointment.name} <br />
                 <strong>Email:</strong> {appointment.email} <br />
                 <strong>Phone:</strong> {appointment.phone} <br />
-                <strong>Address:</strong> {appointment.address}
+                <strong>Address:</strong> {appointment.address}<br />
+                <strong>Appointment Date :</strong> {appointment.createdAt ? new Date(appointment.createdAt).toLocaleDateString() : "Not Set"} <br />
               </td>
+             
               <td>{appointment.city}</td>
               <td>{appointment.serviceType}</td>
               <td>
@@ -138,6 +155,7 @@ const AdminAppointments = () => {
               </td>
               <td>
                 <button onClick={() => handleEditClick(appointment)}>Update Info</button>
+                <button onClick={() => handleDeleteClick(appointment._id)}>Delete</button>
               </td>
             </tr>
           ))}
@@ -187,7 +205,7 @@ const AdminAppointments = () => {
       {isCalendarModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <h3>Appointments on {selectedDate ? selectedDate.toLocaleDateString() : ""}</h3> {/* ✅ Show Selected Date */}
+            <h3>Appointments on {selectedDate ? selectedDate.toLocaleDateString() : ""}</h3>
             {selectedDateAppointments.length > 0 ? (
               <div>
                 {selectedDateAppointments.map((appt) => (
@@ -212,8 +230,6 @@ const AdminAppointments = () => {
           </div>
         </div>
       )}
-
-      
     </div>
   );
 };
