@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const appointmentSchema = new mongoose.Schema({
-  appointmentId: { type: String, unique: true }, // Custom Appointment ID
+  appointmentId: { type: String, unique: true },
   name: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },
@@ -11,6 +11,10 @@ const appointmentSchema = new mongoose.Schema({
   additionalInfo: { type: String },
   receiveUpdates: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
+  siteVisitDate: { type: Date }, // New: Site visit date
+  siteAnalysisStatus: { type: String, default: "Pending" }, // Pending, Completed
+  projectStatus: { type: String, default: "Not Started" }, // Not Started, Ongoing, Hold
+  projectId: { type: String }, // New: Project ID
 });
 
 // Middleware: Auto-generate appointment ID

@@ -55,15 +55,15 @@ const AppointmentForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Book an Appointment</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" className="w-full p-2 border rounded" required />
-        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="w-full p-2 border rounded" required />
-        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" className="w-full p-2 border rounded" required />
-        <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Address" className="w-full p-2 border rounded" required />
-        <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" className="w-full p-2 border rounded" required />
-        <select name="serviceType" value={formData.serviceType} onChange={handleChange} className="w-full p-2 border rounded" required>
+    <div className="container">
+      <h2>Book an Appointment</h2>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" required />
+        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
+        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" required />
+        <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Address" required />
+        <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" required />
+        <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
           <option value="">Select a Service</option>
           {serviceOptions.map((service, index) => (
             <option key={index} value={service}>
@@ -71,12 +71,12 @@ const AppointmentForm = () => {
             </option>
           ))}
         </select>
-        <textarea name="additionalInfo" value={formData.additionalInfo} onChange={handleChange} placeholder="Additional Information" className="w-full p-2 border rounded"></textarea>
-        <div className="flex items-center">
-          <input type="checkbox" name="receiveUpdates" checked={formData.receiveUpdates} onChange={handleChange} className="mr-2" />
+        <textarea name="additionalInfo" value={formData.additionalInfo} onChange={handleChange} placeholder="Additional Information"></textarea>
+        <div className="checkbox-container">
+          <input type="checkbox" name="receiveUpdates" checked={formData.receiveUpdates} onChange={handleChange} />
           <label>Click here & Submit to receive updates & offers</label>
         </div>
-        <button type="submit" className="w-full bg-green-500 text-white p-2 rounded">Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
