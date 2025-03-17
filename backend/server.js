@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
-
+const authRoutes = require("./routes/auth");
 
 const appointmentRoutes = require("./routes/appointmentRoutes");
 
@@ -36,5 +36,6 @@ app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 app.use("/api/appointments", appointmentRoutes);
 
 
-
+// Routes
+app.use("/api/auth", authRoutes);
 

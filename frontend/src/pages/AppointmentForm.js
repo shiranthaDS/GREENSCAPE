@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Swal from "sweetalert2";
 
 const AppointmentForm = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +13,8 @@ const AppointmentForm = () => {
     receiveUpdates: false,
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const serviceOptions = ["Lawn Care", "Tree Trimming", "Garden Design", "Irrigation Installation"];
 
   const handleChange = (e) => {
@@ -25,6 +27,8 @@ const AppointmentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
+
     try {
       const response = await fetch("http://localhost:5000/api/appointments", {
         method: "POST",
@@ -35,7 +39,13 @@ const AppointmentForm = () => {
       });
 
       if (response.ok) {
-        alert("Appointment booked successfully!");
+        Swal.fire({
+          icon: "success",
+          title: "Appointment Booked!",
+          text: "Your appointment has been successfully booked.",
+          confirmButtonColor: "#28a745",
+        });
+
         setFormData({
           name: "",
           email: "",
@@ -47,11 +57,24 @@ const AppointmentForm = () => {
           receiveUpdates: false,
         });
       } else {
-        alert("Failed to book appointment.");
+        Swal.fire({
+          icon: "error",
+          title: "Booking Failed",
+          text: "There was an issue booking your appointment. Please try again.",
+          confirmButtonColor: "#dc3545",
+        });
       }
     } catch (error) {
       console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+        text: "Please check your connection and try again.",
+        confirmButtonColor: "#dc3545",
+      });
     }
+
+    setIsLoading(false); // Stop loading
   };
 
   return (
@@ -76,8 +99,53 @@ const AppointmentForm = () => {
           <input type="checkbox" name="receiveUpdates" checked={formData.receiveUpdates} onChange={handleChange} />
           <label>Click here & Submit to receive updates & offers</label>
         </div>
-        <button type="submit">Submit</button>
+
+        {/* Button with Loading Spinner */}
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? <div className="spinner"></div> : "Submit"}
+        </button>
       </form>
+
+      {/* CSS for Spinner */}
+      <style jsx>{`
+        .spinner {
+          width: 20px;
+          height: 20px;
+          border: 3px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          border-top-color: #fff;
+          animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        button {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 40px;
+          width: 100%;
+          background-color: #28a745;
+          color: white;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        button:disabled {
+          background-color: #6c757d;
+          cursor: not-allowed;
+        }
+      `}</style>
     </div>
   );
 };
