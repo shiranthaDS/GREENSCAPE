@@ -1,0 +1,21 @@
+/* StarRating.css */
+.star-rating {
+    display: flex;
+    cursor: pointer;
+    font-size: 24px;
+    color: #ddd; /* Default color for unfilled stars */
+  }
+  
+  .star {
+    padding: 0 5px;
+    transition: color 0.2s;
+  }
+  
+  .star.filled {
+    color: #ffd700; /* Gold color for filled stars */
+  }
+  
+  .star.hover {
+    color: #ffcc00; /* Lighter gold for hover effect */
+  }
+  
