@@ -1,0 +1,69 @@
+.admin-login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.admin-login-box {
+    background-color: #fff;
+    padding: 60px; /* Increased padding */
+    border-radius: 8px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px; /* Increased max-width */
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Ensures padding is included in total width */
+}
+
+.password-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.show-password-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px; /* Add spacing between input and button */
+    font-size: 1.2em; /* Adjust icon size */
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #6ea95f;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background-color: #5fab4c;
+}

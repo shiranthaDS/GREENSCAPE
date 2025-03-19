@@ -1,0 +1,1763 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "forceNER": true,
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "en"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "en": {
+        "settings": {
+          "locale": "en",
+          "trainByDomain": false,
+          "tag": "domain-manager-en",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "hello": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "hi": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "hey,there": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "good,morn": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "are,how,you": {
+            "intent": "greetings.howareyou",
+            "domain": "default"
+          },
+          "are,who,you": {
+            "intent": "bot.identity",
+            "domain": "default"
+          },
+          "is,name,what,your": {
+            "intent": "bot.identity",
+            "domain": "default"
+          },
+          "greenscap,is,what": {
+            "intent": "company.about",
+            "domain": "default"
+          },
+          "do,offer,servic,what,you": {
+            "intent": "services.list",
+            "domain": "default"
+          },
+          "about,me,servic,tell,your": {
+            "intent": "services.list",
+            "domain": "default"
+          },
+          "care,do,lawn,provid,you": {
+            "intent": "services.lawncare",
+            "domain": "default"
+          },
+          "design,do,garden,offer,you": {
+            "intent": "services.gardendesign",
+            "domain": "default"
+          },
+          "in,includ,is,mainten,what": {
+            "intent": "services.maintenance",
+            "domain": "default"
+          },
+          "cost,do,how,much,servic,your": {
+            "intent": "pricing.info",
+            "domain": "default"
+          },
+          "are,price,what,your": {
+            "intent": "pricing.info",
+            "domain": "default"
+          },
+          "for,is,landscap,price,the,what": {
+            "intent": "pricing.landscaping",
+            "domain": "default"
+          },
+          "cost,design,garden,is,of,the,what": {
+            "intent": "pricing.gardendesign",
+            "domain": "default"
+          },
+          "care,for,how,lawn,much": {
+            "intent": "pricing.lawncare",
+            "domain": "default"
+          },
+          "cost,doe,mainten,what": {
+            "intent": "pricing.maintenance",
+            "domain": "default"
+          },
+          "can,contact,how,i,you": {
+            "intent": "contact.info",
+            "domain": "default"
+          },
+          "is,number,phone,what,your": {
+            "intent": "contact.info",
+            "domain": "default"
+          },
+          "an,do,email,have,you": {
+            "intent": "contact.info",
+            "domain": "default"
+          },
+          "thank": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "thankyou": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "bye": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "goodby": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greetings.hello": "default",
+          "greetings.howareyou": "default",
+          "bot.identity": "default",
+          "company.about": "default",
+          "services.list": "default",
+          "services.lawncare": "default",
+          "services.gardendesign": "default",
+          "services.maintenance": "default",
+          "pricing.info": "default",
+          "pricing.landscaping": "default",
+          "pricing.gardendesign": "default",
+          "pricing.lawncare": "default",
+          "pricing.maintenance": "default",
+          "contact.info": "default",
+          "greetings.bye": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "hello",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "hi",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "hey there",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "good morning",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "how are you?",
+            "intent": "greetings.howareyou"
+          },
+          {
+            "domain": "default",
+            "utterance": "who are you?",
+            "intent": "bot.identity"
+          },
+          {
+            "domain": "default",
+            "utterance": "what is your name?",
+            "intent": "bot.identity"
+          },
+          {
+            "domain": "default",
+            "utterance": "what is GreenScape?",
+            "intent": "company.about"
+          },
+          {
+            "domain": "default",
+            "utterance": "what services do you offer?",
+            "intent": "services.list"
+          },
+          {
+            "domain": "default",
+            "utterance": "tell me about your services",
+            "intent": "services.list"
+          },
+          {
+            "domain": "default",
+            "utterance": "do you provide lawn care?",
+            "intent": "services.lawncare"
+          },
+          {
+            "domain": "default",
+            "utterance": "do you offer garden design?",
+            "intent": "services.gardendesign"
+          },
+          {
+            "domain": "default",
+            "utterance": "what is included in maintenance?",
+            "intent": "services.maintenance"
+          },
+          {
+            "domain": "default",
+            "utterance": "how much do your services cost?",
+            "intent": "pricing.info"
+          },
+          {
+            "domain": "default",
+            "utterance": "what are your prices?",
+            "intent": "pricing.info"
+          },
+          {
+            "domain": "default",
+            "utterance": "what is the price for landscaping?",
+            "intent": "pricing.landscaping"
+          },
+          {
+            "domain": "default",
+            "utterance": "what is the cost of garden design?",
+            "intent": "pricing.gardendesign"
+          },
+          {
+            "domain": "default",
+            "utterance": "how much for lawn care?",
+            "intent": "pricing.lawncare"
+          },
+          {
+            "domain": "default",
+            "utterance": "what does maintenance cost?",
+            "intent": "pricing.maintenance"
+          },
+          {
+            "domain": "default",
+            "utterance": "how can I contact you?",
+            "intent": "contact.info"
+          },
+          {
+            "domain": "default",
+            "utterance": "what is your phone number?",
+            "intent": "contact.info"
+          },
+          {
+            "domain": "default",
+            "utterance": "do you have an email?",
+            "intent": "contact.info"
+          },
+          {
+            "domain": "default",
+            "utterance": "Thanks",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "Thankyou",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "bye",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "goodbye",
+            "intent": "greetings.bye"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "en",
+              "tag": "nlu-en",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "hello": 1,
+              "hi": 1,
+              "hey": 1,
+              "there": 1,
+              "good": 1,
+              "morn": 1,
+              "how": 1,
+              "are": 1,
+              "you": 1,
+              "who": 1,
+              "what": 1,
+              "is": 1,
+              "your": 1,
+              "name": 1,
+              "greenscap": 1,
+              "servic": 1,
+              "do": 1,
+              "offer": 1,
+              "tell": 1,
+              "me": 1,
+              "about": 1,
+              "provid": 1,
+              "lawn": 1,
+              "care": 1,
+              "garden": 1,
+              "design": 1,
+              "includ": 1,
+              "in": 1,
+              "mainten": 1,
+              "much": 1,
+              "cost": 1,
+              "price": 1,
+              "the": 1,
+              "for": 1,
+              "landscap": 1,
+              "of": 1,
+              "doe": 1,
+              "can": 1,
+              "i": 1,
+              "contact": 1,
+              "phone": 1,
+              "number": 1,
+              "have": 1,
+              "an": 1,
+              "email": 1,
+              "thank": 1,
+              "thankyou": 1,
+              "bye": 1,
+              "goodby": 1
+            },
+            "intents": {
+              "greetings.hello": 1,
+              "greetings.howareyou": 1,
+              "bot.identity": 1,
+              "company.about": 1,
+              "services.list": 1,
+              "services.lawncare": 1,
+              "services.gardendesign": 1,
+              "services.maintenance": 1,
+              "pricing.info": 1,
+              "pricing.landscaping": 1,
+              "pricing.gardendesign": 1,
+              "pricing.lawncare": 1,
+              "pricing.maintenance": 1,
+              "contact.info": 1,
+              "greetings.bye": 1
+            },
+            "intentFeatures": {
+              "greetings.hello": {
+                "hello": 1,
+                "hi": 1,
+                "hey": 1,
+                "there": 1,
+                "good": 1,
+                "morn": 1
+              },
+              "greetings.howareyou": {
+                "how": 1,
+                "are": 1,
+                "you": 1
+              },
+              "bot.identity": {
+                "who": 1,
+                "are": 1,
+                "you": 1,
+                "what": 1,
+                "is": 1,
+                "your": 1,
+                "name": 1
+              },
+              "company.about": {
+                "what": 1,
+                "is": 1,
+                "greenscap": 1
+              },
+              "services.list": {
+                "what": 1,
+                "servic": 1,
+                "do": 1,
+                "you": 1,
+                "offer": 1,
+                "tell": 1,
+                "me": 1,
+                "about": 1,
+                "your": 1
+              },
+              "services.lawncare": {
+                "do": 1,
+                "you": 1,
+                "provid": 1,
+                "lawn": 1,
+                "care": 1
+              },
+              "services.gardendesign": {
+                "do": 1,
+                "you": 1,
+                "offer": 1,
+                "garden": 1,
+                "design": 1
+              },
+              "services.maintenance": {
+                "what": 1,
+                "is": 1,
+                "includ": 1,
+                "in": 1,
+                "mainten": 1
+              },
+              "pricing.info": {
+                "how": 1,
+                "much": 1,
+                "do": 1,
+                "your": 1,
+                "servic": 1,
+                "cost": 1,
+                "what": 1,
+                "are": 1,
+                "price": 1
+              },
+              "pricing.landscaping": {
+                "what": 1,
+                "is": 1,
+                "the": 1,
+                "price": 1,
+                "for": 1,
+                "landscap": 1
+              },
+              "pricing.gardendesign": {
+                "what": 1,
+                "is": 1,
+                "the": 1,
+                "cost": 1,
+                "of": 1,
+                "garden": 1,
+                "design": 1
+              },
+              "pricing.lawncare": {
+                "how": 1,
+                "much": 1,
+                "for": 1,
+                "lawn": 1,
+                "care": 1
+              },
+              "pricing.maintenance": {
+                "what": 1,
+                "doe": 1,
+                "mainten": 1,
+                "cost": 1
+              },
+              "contact.info": {
+                "how": 1,
+                "can": 1,
+                "i": 1,
+                "contact": 1,
+                "you": 1,
+                "what": 1,
+                "is": 1,
+                "your": 1,
+                "phone": 1,
+                "number": 1,
+                "do": 1,
+                "have": 1,
+                "an": 1,
+                "email": 1
+              },
+              "greetings.bye": {
+                "thank": 1,
+                "thankyou": 1,
+                "bye": 1,
+                "goodby": 1
+              }
+            },
+            "featuresToIntent": {
+              "hello": [
+                "greetings.hello"
+              ],
+              "hi": [
+                "greetings.hello"
+              ],
+              "hey": [
+                "greetings.hello"
+              ],
+              "there": [
+                "greetings.hello"
+              ],
+              "good": [
+                "greetings.hello"
+              ],
+              "morn": [
+                "greetings.hello"
+              ],
+              "how": [
+                "greetings.howareyou",
+                "pricing.info",
+                "pricing.lawncare",
+                "contact.info"
+              ],
+              "are": [
+                "greetings.howareyou",
+                "bot.identity",
+                "pricing.info"
+              ],
+              "you": [
+                "greetings.howareyou",
+                "bot.identity",
+                "services.list",
+                "services.lawncare",
+                "services.gardendesign",
+                "contact.info"
+              ],
+              "who": [
+                "bot.identity"
+              ],
+              "what": [
+                "bot.identity",
+                "company.about",
+                "services.list",
+                "services.maintenance",
+                "pricing.info",
+                "pricing.landscaping",
+                "pricing.gardendesign",
+                "pricing.maintenance",
+                "contact.info"
+              ],
+              "is": [
+                "bot.identity",
+                "company.about",
+                "services.maintenance",
+                "pricing.landscaping",
+                "pricing.gardendesign",
+                "contact.info"
+              ],
+              "your": [
+                "bot.identity",
+                "services.list",
+                "pricing.info",
+                "contact.info"
+              ],
+              "name": [
+                "bot.identity"
+              ],
+              "greenscap": [
+                "company.about"
+              ],
+              "servic": [
+                "services.list",
+                "pricing.info"
+              ],
+              "do": [
+                "services.list",
+                "services.lawncare",
+                "services.gardendesign",
+                "pricing.info",
+                "contact.info"
+              ],
+              "offer": [
+                "services.list",
+                "services.gardendesign"
+              ],
+              "tell": [
+                "services.list"
+              ],
+              "me": [
+                "services.list"
+              ],
+              "about": [
+                "services.list"
+              ],
+              "provid": [
+                "services.lawncare"
+              ],
+              "lawn": [
+                "services.lawncare",
+                "pricing.lawncare"
+              ],
+              "care": [
+                "services.lawncare",
+                "pricing.lawncare"
+              ],
+              "garden": [
+                "services.gardendesign",
+                "pricing.gardendesign"
+              ],
+              "design": [
+                "services.gardendesign",
+                "pricing.gardendesign"
+              ],
+              "includ": [
+                "services.maintenance"
+              ],
+              "in": [
+                "services.maintenance"
+              ],
+              "mainten": [
+                "services.maintenance",
+                "pricing.maintenance"
+              ],
+              "much": [
+                "pricing.info",
+                "pricing.lawncare"
+              ],
+              "cost": [
+                "pricing.info",
+                "pricing.gardendesign",
+                "pricing.maintenance"
+              ],
+              "price": [
+                "pricing.info",
+                "pricing.landscaping"
+              ],
+              "the": [
+                "pricing.landscaping",
+                "pricing.gardendesign"
+              ],
+              "for": [
+                "pricing.landscaping",
+                "pricing.lawncare"
+              ],
+              "landscap": [
+                "pricing.landscaping"
+              ],
+              "of": [
+                "pricing.gardendesign"
+              ],
+              "doe": [
+                "pricing.maintenance"
+              ],
+              "can": [
+                "contact.info"
+              ],
+              "i": [
+                "contact.info"
+              ],
+              "contact": [
+                "contact.info"
+              ],
+              "phone": [
+                "contact.info"
+              ],
+              "number": [
+                "contact.info"
+              ],
+              "have": [
+                "contact.info"
+              ],
+              "an": [
+                "contact.info"
+              ],
+              "email": [
+                "contact.info"
+              ],
+              "thank": [
+                "greetings.bye"
+              ],
+              "thankyou": [
+                "greetings.bye"
+              ],
+              "bye": [
+                "greetings.bye"
+              ],
+              "goodby": [
+                "greetings.bye"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "en",
+                "tag": "nlu-en",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "hello",
+                "hi",
+                "hey",
+                "there",
+                "good",
+                "morn",
+                "how",
+                "are",
+                "you",
+                "who",
+                "what",
+                "is",
+                "your",
+                "name",
+                "greenscap",
+                "servic",
+                "do",
+                "offer",
+                "tell",
+                "me",
+                "about",
+                "provid",
+                "lawn",
+                "care",
+                "garden",
+                "design",
+                "includ",
+                "in",
+                "mainten",
+                "much",
+                "cost",
+                "price",
+                "the",
+                "for",
+                "landscap",
+                "of",
+                "doe",
+                "can",
+                "i",
+                "contact",
+                "phone",
+                "number",
+                "have",
+                "an",
+                "email",
+                "thank",
+                "thankyou",
+                "bye",
+                "goodby"
+              ],
+              "intents": [
+                "greetings.hello",
+                "greetings.howareyou",
+                "bot.identity",
+                "company.about",
+                "services.list",
+                "services.lawncare",
+                "services.gardendesign",
+                "services.maintenance",
+                "pricing.info",
+                "pricing.landscaping",
+                "pricing.gardendesign",
+                "pricing.lawncare",
+                "pricing.maintenance",
+                "contact.info",
+                "greetings.bye"
+              ],
+              "perceptrons": [
+                [
+                  9.767303466796875,
+                  9.761362075805664,
+                  5.074770927429199,
+                  5.074770927429199,
+                  5.073375225067139,
+                  5.073375225067139,
+                  -1.384107232093811,
+                  -1.2568985223770142,
+                  -2.398739814758301,
+                  -0.6958328485488892,
+                  -2.2635462284088135,
+                  -1.4484719038009644,
+                  -1.272035837173462,
+                  -0.2971089780330658,
+                  -0.6620431542396545,
+                  -0.9796532392501831,
+                  -1.0878747701644897,
+                  -0.4121171236038208,
+                  -0.733890950679779,
+                  -0.733890950679779,
+                  -0.733890950679779,
+                  -0.21510300040245056,
+                  -0.8246541023254395,
+                  -0.8246541023254395,
+                  -0.3141551911830902,
+                  -0.3141551911830902,
+                  -0.22651199996471405,
+                  -0.22651199996471405,
+                  -0.8305649161338806,
+                  -0.6738053560256958,
+                  -0.7215474247932434,
+                  -0.21237432956695557,
+                  -0.17033757269382477,
+                  -0.7106362581253052,
+                  -0.12794311344623566,
+                  -0.027047129347920418,
+                  -0.5756469368934631,
+                  -0.21430152654647827,
+                  -0.21430152654647827,
+                  -0.21430152654647827,
+                  0,
+                  0,
+                  -0.2991442084312439,
+                  -0.2991442084312439,
+                  -0.2991442084312439,
+                  -3.935082197189331,
+                  -3.903745412826538,
+                  -3.871687173843384,
+                  -3.83894681930542,
+                  4.07976710788901
+                ],
+                [
+                  -0.009924313053488731,
+                  -0.009533502161502838,
+                  -0.007028599735349417,
+                  -0.007028599735349417,
+                  -0.006748350337147713,
+                  -0.006748350337147713,
+                  6.925037384033203,
+                  4.721721172332764,
+                  2.19925594329834,
+                  -5.819459915161133,
+                  -1.3629850149154663,
+                  -0.08939461410045624,
+                  -1.7393749952316284,
+                  -0.022689934819936752,
+                  -0.03419202193617821,
+                  -0.7830257415771484,
+                  -1.3547288179397583,
+                  -0.3893222212791443,
+                  -0.022858280688524246,
+                  -0.022858280688524246,
+                  -0.022858280688524246,
+                  -0.16247127950191498,
+                  -1.5395574569702148,
+                  -1.5395574569702148,
+                  -0.21205073595046997,
+                  -0.21205073595046997,
+                  -0.006162793841212988,
+                  -0.006162793841212988,
+                  -0.006162793841212988,
+                  -1.919107437133789,
+                  -0.576643705368042,
+                  -1.0829052925109863,
+                  0,
+                  -1.3341126441955566,
+                  0,
+                  0,
+                  0,
+                  -2.8196017742156982,
+                  -2.8196017742156982,
+                  -2.8196017742156982,
+                  0,
+                  0,
+                  -0.1715015321969986,
+                  -0.1715015321969986,
+                  -0.1715015321969986,
+                  -0.011666600592434406,
+                  -0.011206978000700474,
+                  -0.010765408165752888,
+                  -0.010341184213757515,
+                  -0.5309366913656826
+                ],
+                [
+                  -0.19427497684955597,
+                  -0.19265753030776978,
+                  -0.11058296263217926,
+                  -0.11058296263217926,
+                  -0.11002250015735626,
+                  -0.11002250015735626,
+                  -4.554917812347412,
+                  1.711720585823059,
+                  3.0891406536102295,
+                  8.870988845825195,
+                  -0.7315393686294556,
+                  2.933562994003296,
+                  2.5372812747955322,
+                  9.166775703430176,
+                  -2.329657793045044,
+                  -1.138322353363037,
+                  -1.7675193548202515,
+                  -0.48909327387809753,
+                  -0.5616955757141113,
+                  -0.5616955757141113,
+                  -0.5616955757141113,
+                  -0.5038978457450867,
+                  -0.5038978457450867,
+                  -0.5038978457450867,
+                  -0.5149114727973938,
+                  -0.5149114727973938,
+                  -0.8114756941795349,
+                  -0.8114756941795349,
+                  -0.83852219581604,
+                  -0.24240170419216156,
+                  -0.600662887096405,
+                  -3.6548805236816406,
+                  -0.6238695383071899,
+                  -0.27635934948921204,
+                  -0.27635934948921204,
+                  -0.29881709814071655,
+                  -0.013519461266696453,
+                  -0.433376669883728,
+                  -0.433376669883728,
+                  -0.433376669883728,
+                  -2.4498043060302734,
+                  -2.4498043060302734,
+                  -0.504486620426178,
+                  -0.504486620426178,
+                  -0.504486620426178,
+                  -0.20147575438022614,
+                  -0.19925643503665924,
+                  -0.1973499357700348,
+                  -0.19588018953800201,
+                  0.1958035948642854
+                ],
+                [
+                  -0.2030901312828064,
+                  -0.20143570005893707,
+                  -0.10834058374166489,
+                  -0.10834058374166489,
+                  -0.1076178103685379,
+                  -0.1076178103685379,
+                  -0.01573321409523487,
+                  -0.17366066575050354,
+                  -0.5628274083137512,
+                  0,
+                  1.997846007347107,
+                  2.8356659412384033,
+                  -3.14335560798645,
+                  -1.8306210041046143,
+                  9.117854118347168,
+                  -0.5515015125274658,
+                  -0.5717737078666687,
+                  -0.5195523500442505,
+                  -0.021653402596712112,
+                  -0.021653402596712112,
+                  -0.021653402596712112,
+                  -0.029676241800189018,
+                  -0.038192909210920334,
+                  -0.038192909210920334,
+                  -0.7934240698814392,
+                  -0.7934240698814392,
+                  -1.6375545263290405,
+                  -1.6375545263290405,
+                  -1.75375497341156,
+                  -0.01169548649340868,
+                  -0.8997319936752319,
+                  -1.232703685760498,
+                  -1.7824252843856812,
+                  -1.0147181749343872,
+                  -1.009386420249939,
+                  -0.7719406485557556,
+                  -0.10186748206615448,
+                  -0.0013644370483234525,
+                  -0.0013644370483234525,
+                  -0.0013644370483234525,
+                  -1.0318431854248047,
+                  -1.0318431854248047,
+                  0,
+                  0,
+                  0,
+                  -0.20943225920200348,
+                  -0.2080925554037094,
+                  -0.20670096576213837,
+                  -0.2052597999572754,
+                  0.20995958087057612
+                ],
+                [
+                  -0.07057078182697296,
+                  -0.06797325611114502,
+                  -0.05374465137720108,
+                  -0.05374465137720108,
+                  -0.051841773092746735,
+                  -0.051841773092746735,
+                  -2.011178731918335,
+                  -1.064637303352356,
+                  1.6921409368515015,
+                  -0.29015278816223145,
+                  2.844001531600952,
+                  -1.8432655334472656,
+                  -0.6102491021156311,
+                  -0.4324745535850525,
+                  -0.6477064490318298,
+                  6.597775459289551,
+                  0.25126928091049194,
+                  3.201566219329834,
+                  2.878290891647339,
+                  2.878290891647339,
+                  2.878290891647339,
+                  -0.5369565486907959,
+                  -0.5517465472221375,
+                  -0.5517465472221375,
+                  -2.3958969116210938,
+                  -2.3958969116210938,
+                  -0.23058238625526428,
+                  -0.23058238625526428,
+                  -0.364048570394516,
+                  -1.878287434577942,
+                  -2.0109076499938965,
+                  -0.844973623752594,
+                  -0.08965455740690231,
+                  -0.08091221749782562,
+                  -0.06636272370815277,
+                  -0.010782841593027115,
+                  -0.1311798244714737,
+                  -0.08679710328578949,
+                  -0.08679710328578949,
+                  -0.08679710328578949,
+                  -0.39035964012145996,
+                  -0.39035964012145996,
+                  -0.5354084968566895,
+                  -0.5354084968566895,
+                  -0.5354084968566895,
+                  -0.0820598229765892,
+                  -0.07904263585805893,
+                  -0.07613497227430344,
+                  -0.07333291321992874,
+                  -0.33576035910736995
+                ],
+                [
+                  -0.015440553426742554,
+                  -0.014809750020503998,
+                  -0.0138623658567667,
+                  -0.0138623658567667,
+                  -0.013310576789081097,
+                  -0.013310576789081097,
+                  -2.174987316131592,
+                  -0.6287875771522522,
+                  1.4947311878204346,
+                  -0.5009765625,
+                  -0.8089396357536316,
+                  -0.0745750218629837,
+                  -0.16743186116218567,
+                  0,
+                  0,
+                  -0.8650777339935303,
+                  2.075746536254883,
+                  -1.531568169593811,
+                  0,
+                  0,
+                  0,
+                  4.8531646728515625,
+                  3.1130130290985107,
+                  3.1130130290985107,
+                  -0.8449214100837708,
+                  -0.8449214100837708,
+                  -0.03490346297621727,
+                  -0.03490346297621727,
+                  -0.04935793951153755,
+                  -1.9176121950149536,
+                  -0.15114684402942657,
+                  -0.03766903653740883,
+                  -0.023042162880301476,
+                  -1.7684800624847412,
+                  -0.01463221199810505,
+                  -0.001421073218807578,
+                  -0.006130804307758808,
+                  -0.12837113440036774,
+                  -0.12837113440036774,
+                  -0.12837113440036774,
+                  -0.0009186333045363426,
+                  -0.0009186333045363426,
+                  -1.068523645401001,
+                  -1.068523645401001,
+                  -1.068523645401001,
+                  -0.018264751881361008,
+                  -0.01751791313290596,
+                  -0.01680159568786621,
+                  -0.016114553436636925,
+                  -0.3646924742543328
+                ],
+                [
+                  -0.020297084003686905,
+                  -0.019468137994408607,
+                  -0.01821703277528286,
+                  -0.01821703277528286,
+                  -0.01749240979552269,
+                  -0.01749240979552269,
+                  -0.5199562311172485,
+                  -0.5084095597267151,
+                  1.094706416130066,
+                  -0.29907098412513733,
+                  -3.39690899848938,
+                  -1.231703281402588,
+                  -0.14793379604816437,
+                  0,
+                  0,
+                  -2.286963701248169,
+                  1.5857502222061157,
+                  3.3160617351531982,
+                  0,
+                  0,
+                  0,
+                  -0.7754916548728943,
+                  -0.799806535243988,
+                  -0.799806535243988,
+                  4.291261672973633,
+                  4.291261672973633,
+                  -0.025572484359145164,
+                  -0.025572484359145164,
+                  -0.039862118661403656,
+                  -0.139109268784523,
+                  -1.3169399499893188,
+                  -0.044270217418670654,
+                  -1.1823188066482544,
+                  -0.03725028410553932,
+                  -0.016568640246987343,
+                  -1.1503719091415405,
+                  -0.002100967336446047,
+                  -0.13838903605937958,
+                  -0.13838903605937958,
+                  -0.13838903605937958,
+                  0,
+                  0,
+                  -0.7922419309616089,
+                  -0.7922419309616089,
+                  -0.7922419309616089,
+                  -0.024008261039853096,
+                  -0.023026887327432632,
+                  -0.022085607051849365,
+                  -0.02118278108537197,
+                  -0.3030239425447918
+                ],
+                [
+                  -0.03249068558216095,
+                  -0.031309910118579865,
+                  -0.02504792809486389,
+                  -0.02504792809486389,
+                  -0.02417968213558197,
+                  -0.02417968213558197,
+                  -0.0806548073887825,
+                  -0.11970344930887222,
+                  -0.09529650211334229,
+                  -0.0026280113961547613,
+                  -0.013713167048990726,
+                  1.5779914855957031,
+                  -1.2109525203704834,
+                  -0.5107656121253967,
+                  -1.3529164791107178,
+                  -0.09753642231225967,
+                  -0.11153338849544525,
+                  -0.050418462604284286,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.009784001857042313,
+                  -0.009784001857042313,
+                  -0.2873649597167969,
+                  -0.2873649597167969,
+                  4.76690673828125,
+                  4.76690673828125,
+                  3.3894107341766357,
+                  -0.047004640102386475,
+                  -1.7953161001205444,
+                  -0.5544976592063904,
+                  -0.7728215456008911,
+                  -0.4200461506843567,
+                  -0.3990636169910431,
+                  -0.2873649597167969,
+                  -1.3767961263656616,
+                  -0.01815974898636341,
+                  -0.01815974898636341,
+                  -0.01815974898636341,
+                  -0.43637198209762573,
+                  -0.43637198209762573,
+                  -0.00706741726025939,
+                  -0.00706741726025939,
+                  -0.00706741726025939,
+                  -0.03449605777859688,
+                  -0.03317376971244812,
+                  -0.031901877373456955,
+                  -0.03374555706977844,
+                  -0.20469999364126445
+                ],
+                [
+                  -0.05090072751045227,
+                  -0.0488559752702713,
+                  -0.04499880596995354,
+                  -0.04499880596995354,
+                  -0.04327119514346123,
+                  -0.04327119514346123,
+                  0.6469426155090332,
+                  3.6008989810943604,
+                  -3.4443459510803223,
+                  -0.35063251852989197,
+                  0.7171987295150757,
+                  -3.388017416000366,
+                  5.1788330078125,
+                  -1.7046769857406616,
+                  -0.013845790177583694,
+                  1.1651310920715332,
+                  2.861524820327759,
+                  -0.7190393209457397,
+                  -1.8517143726348877,
+                  -1.8517143726348877,
+                  -1.8517143726348877,
+                  0,
+                  -0.8770715594291687,
+                  -0.8770715594291687,
+                  -0.1776150017976761,
+                  -0.1776150017976761,
+                  0,
+                  0,
+                  -1.151769757270813,
+                  2.8427298069000244,
+                  2.3713455200195312,
+                  5.548318862915039,
+                  -0.6019296646118164,
+                  -1.3141673803329468,
+                  -0.32591909170150757,
+                  -0.1776150017976761,
+                  -1.151769757270813,
+                  -0.1261594146490097,
+                  -0.1261594146490097,
+                  -0.1261594146490097,
+                  -0.9831499457359314,
+                  -0.9831499457359314,
+                  -0.12597498297691345,
+                  -0.12597498297691345,
+                  -0.12597498297691345,
+                  -0.06003762409090996,
+                  -0.05762409046292305,
+                  -0.05530744791030884,
+                  -0.053083814680576324,
+                  -0.7827645846903027
+                ],
+                [
+                  -0.01977785862982273,
+                  -0.018970809876918793,
+                  -0.017736658453941345,
+                  -0.017736658453941345,
+                  -0.017032461240887642,
+                  -0.017032461240887642,
+                  -0.7379035949707031,
+                  -0.9814716577529907,
+                  -0.13899044692516327,
+                  -0.006428992375731468,
+                  0.05284079164266586,
+                  1.2373082637786865,
+                  -1.6587811708450317,
+                  -0.29325422644615173,
+                  -0.8119106888771057,
+                  -0.06875442713499069,
+                  -0.09136404097080231,
+                  -0.06875442713499069,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.7027435898780823,
+                  -0.7027435898780823,
+                  -0.9418954253196716,
+                  -0.9418954253196716,
+                  -0.2982003092765808,
+                  -0.2982003092765808,
+                  -0.4319363236427307,
+                  -0.7027435898780823,
+                  -1.0763170719146729,
+                  3.060253381729126,
+                  3.066239595413208,
+                  3.3215320110321045,
+                  4.024847030639648,
+                  -0.9418954253196716,
+                  -0.09257053583860397,
+                  -0.015174082480370998,
+                  -0.015174082480370998,
+                  -0.015174082480370998,
+                  -0.2766430675983429,
+                  -0.2766430675983429,
+                  -0.012385670095682144,
+                  -0.012385670095682144,
+                  -0.012385670095682144,
+                  -0.02339063212275505,
+                  -0.02243533357977867,
+                  -0.021519025787711143,
+                  -0.020640121772885323,
+                  -0.4775176192003288
+                ],
+                [
+                  -0.02454245276749134,
+                  -0.023542404174804688,
+                  -0.021980050951242447,
+                  -0.021980050951242447,
+                  -0.021110082045197487,
+                  -0.021110082045197487,
+                  -0.1496140956878662,
+                  -0.029895776882767677,
+                  -1.383276343345642,
+                  -0.008009292185306549,
+                  0.1735948920249939,
+                  1.1643075942993164,
+                  -0.7147591710090637,
+                  -0.2961948812007904,
+                  -0.5638663172721863,
+                  -0.11038292944431305,
+                  -1.381456971168518,
+                  -1.2861820459365845,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.02585667371749878,
+                  -0.02585667371749878,
+                  2.412229061126709,
+                  2.412229061126709,
+                  -0.1743093729019165,
+                  -0.1743093729019165,
+                  -1.1380586624145508,
+                  -0.09774646162986755,
+                  2.655519723892212,
+                  -1.0476775169372559,
+                  2.602940797805786,
+                  -1.0848923921585083,
+                  -1.0349397659301758,
+                  3.6389126777648926,
+                  -0.9177669882774353,
+                  -0.02006717026233673,
+                  -0.02006717026233673,
+                  -0.02006717026233673,
+                  -0.25121989846229553,
+                  -0.25121989846229553,
+                  -0.015650002285838127,
+                  -0.015650002285838127,
+                  -0.015650002285838127,
+                  -0.029018457978963852,
+                  -0.02783501334488392,
+                  -0.026699798181653023,
+                  -0.025610851123929024,
+                  -0.7740194379655063
+                ],
+                [
+                  -0.0747113972902298,
+                  -0.07186309248209,
+                  -0.055661559104919434,
+                  -0.055661559104919434,
+                  -0.053559619933366776,
+                  -0.053559619933366776,
+                  2.3821909427642822,
+                  -0.35423535108566284,
+                  -1.9578982591629028,
+                  -0.002959940815344453,
+                  -0.7472738027572632,
+                  -0.6794179081916809,
+                  -1.037626028060913,
+                  -0.007899703457951546,
+                  -0.007104549556970596,
+                  -0.9802536368370056,
+                  -2.2282140254974365,
+                  0,
+                  -0.010426879860460758,
+                  -0.010426879860460758,
+                  -0.010426879860460758,
+                  -1.2307597398757935,
+                  2.795682907104492,
+                  2.795682907104492,
+                  0,
+                  0,
+                  -0.0010441201739013195,
+                  -0.0010441201739013195,
+                  -0.0551164448261261,
+                  3.0663435459136963,
+                  -1.0279591083526611,
+                  -0.6063234210014343,
+                  -0.6063234210014343,
+                  3.4201278686523438,
+                  -0.6063234210014343,
+                  0,
+                  -0.04725385084748268,
+                  -0.2631489038467407,
+                  -0.2631489038467407,
+                  -0.2631489038467407,
+                  -0.03195423260331154,
+                  -0.03195423260331154,
+                  -0.01933470368385315,
+                  -0.01933470368385315,
+                  -0.01933470368385315,
+                  -0.08736185729503632,
+                  -0.08403176814317703,
+                  -0.08082777261734009,
+                  -0.07774512469768524,
+                  -0.1744292946446249
+                ],
+                [
+                  -0.11307591944932938,
+                  -0.11127635836601257,
+                  -0.0797683447599411,
+                  -0.0797683447599411,
+                  -0.07727664709091187,
+                  -0.07727664709091187,
+                  -0.6024948954582214,
+                  -0.3576025068759918,
+                  -0.403455913066864,
+                  -0.016598107293248177,
+                  1.7571704387664795,
+                  -2.68438458442688,
+                  -1.1346522569656372,
+                  -0.0979686751961708,
+                  -0.1859036087989807,
+                  -0.7883853316307068,
+                  -0.8332254886627197,
+                  -0.24622878432273865,
+                  -0.0008438485092483461,
+                  -0.0008438485092483461,
+                  -0.0008438485092483461,
+                  0,
+                  0,
+                  0,
+                  -0.725772500038147,
+                  -0.725772500038147,
+                  -1.3965096473693848,
+                  -1.3965096473693848,
+                  3.6281261444091797,
+                  -0.5162694454193115,
+                  3.782632350921631,
+                  -0.357297420501709,
+                  -0.770494818687439,
+                  -0.03289192169904709,
+                  -0.03289192169904709,
+                  -0.725772500038147,
+                  5.02462911605835,
+                  -0.0450575165450573,
+                  -0.0450575165450573,
+                  -0.0450575165450573,
+                  -0.10513085871934891,
+                  -0.10513085871934891,
+                  -0.03415124490857124,
+                  -0.03415124490857124,
+                  -0.03415124490857124,
+                  -0.12583422660827637,
+                  -0.12178301811218262,
+                  -0.1202569305896759,
+                  -0.11665808409452438,
+                  0.09252244319325456
+                ],
+                [
+                  -0.29740971326828003,
+                  -0.2870052456855774,
+                  -0.2273973524570465,
+                  -0.2273973524570465,
+                  -0.22011755406856537,
+                  -0.22011755406856537,
+                  0.8531462550163269,
+                  -2.9844510555267334,
+                  2.278528928756714,
+                  -0.6075724363327026,
+                  -0.006010433658957481,
+                  1.106837511062622,
+                  1.8267724514007568,
+                  -2.7542977333068848,
+                  -1.061922550201416,
+                  -1.870164394378662,
+                  0.540351152420044,
+                  -1.5359277725219727,
+                  -0.15648207068443298,
+                  -0.15648207068443298,
+                  -0.15648207068443298,
+                  -0.9658894538879395,
+                  -0.9658894538879395,
+                  -0.9658894538879395,
+                  -0.6646875143051147,
+                  -0.6646875143051147,
+                  -0.4506153464317322,
+                  -0.4506153464317322,
+                  -0.45173850655555725,
+                  -0.7295143604278564,
+                  -0.7921225428581238,
+                  -0.4526534080505371,
+                  -0.3301208019256592,
+                  -0.268614262342453,
+                  -0.268614262342453,
+                  -0.04549824073910713,
+                  -0.00028661516262218356,
+                  3.7666664123535156,
+                  3.7666664123535156,
+                  3.7666664123535156,
+                  5.743014335632324,
+                  5.743014335632324,
+                  3.8706541061401367,
+                  3.8706541061401367,
+                  3.8706541061401367,
+                  -0.3431535065174103,
+                  -0.3311820924282074,
+                  -0.3196178078651428,
+                  -0.30844733119010925,
+                  -0.14556339136468804
+                ],
+                [
+                  -5.145291328430176,
+                  -5.0963544845581055,
+                  -2.73260235786438,
+                  -2.73260235786438,
+                  -2.7297232151031494,
+                  -2.7297232151031494,
+                  -1.6495018005371094,
+                  -1.5484095811843872,
+                  -2.9363462924957275,
+                  -1.002451777458191,
+                  -2.7393128871917725,
+                  -1.7492573261260986,
+                  -1.4554754495620728,
+                  -0.2970350980758667,
+                  -0.9968238472938538,
+                  -1.170593500137329,
+                  -1.2562694549560547,
+                  -0.49093377590179443,
+                  -0.9549471139907837,
+                  -0.9549471139907837,
+                  -0.9549471139907837,
+                  -0.21588385105133057,
+                  -1.0210620164871216,
+                  -1.0210620164871216,
+                  -0.40580832958221436,
+                  -0.40580832958221436,
+                  -0.2311849147081375,
+                  -0.2311849147081375,
+                  -1.0409246683120728,
+                  -0.8782746195793152,
+                  -0.9200136661529541,
+                  -0.20784562826156616,
+                  -0.16596855223178864,
+                  -0.9208502769470215,
+                  -0.12795543670654297,
+                  -0.029591893777251244,
+                  -0.7894925475120544,
+                  -0.30260229110717773,
+                  -0.30260229110717773,
+                  -0.30260229110717773,
+                  0,
+                  0,
+                  -0.43298932909965515,
+                  -0.43298932909965515,
+                  -0.43298932909965515,
+                  8.569291114807129,
+                  8.580766677856445,
+                  8.531723976135254,
+                  8.480798721313477,
+                  5.53649128593196
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "en",
+        "hello"
+      ],
+      [
+        "en",
+        "hi"
+      ],
+      [
+        "en",
+        "hey there"
+      ],
+      [
+        "en",
+        "good morning"
+      ],
+      [
+        "en",
+        "how are you?"
+      ],
+      [
+        "en",
+        "who are you?"
+      ],
+      [
+        "en",
+        "what is your name?"
+      ],
+      [
+        "en",
+        "what is GreenScape?"
+      ],
+      [
+        "en",
+        "what services do you offer?"
+      ],
+      [
+        "en",
+        "tell me about your services"
+      ],
+      [
+        "en",
+        "do you provide lawn care?"
+      ],
+      [
+        "en",
+        "do you offer garden design?"
+      ],
+      [
+        "en",
+        "what is included in maintenance?"
+      ],
+      [
+        "en",
+        "how much do your services cost?"
+      ],
+      [
+        "en",
+        "what are your prices?"
+      ],
+      [
+        "en",
+        "what is the price for landscaping?"
+      ],
+      [
+        "en",
+        "what is the cost of garden design?"
+      ],
+      [
+        "en",
+        "how much for lawn care?"
+      ],
+      [
+        "en",
+        "what does maintenance cost?"
+      ],
+      [
+        "en",
+        "how can I contact you?"
+      ],
+      [
+        "en",
+        "what is your phone number?"
+      ],
+      [
+        "en",
+        "do you have an email?"
+      ],
+      [
+        "en",
+        "Thanks"
+      ],
+      [
+        "en",
+        "Thankyou"
+      ],
+      [
+        "en",
+        "bye"
+      ],
+      [
+        "en",
+        "goodbye"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "en": {
+        "greetings.hello": [
+          {
+            "answer": "Hello! Welcome to GreenScape. How can I help you today?"
+          }
+        ],
+        "greetings.howareyou": [
+          {
+            "answer": "I'm doing great! How about you?"
+          }
+        ],
+        "bot.identity": [
+          {
+            "answer": "I'm GreenScape Bot, here to assist you with landscaping services!"
+          }
+        ],
+        "company.about": [
+          {
+            "answer": "GreenScape is a professional landscaping company specializing in garden design, maintenance, and lawn care."
+          }
+        ],
+        "services.list": [
+          {
+            "answer": "We offer landscaping, garden design, lawn care, and full maintenance services."
+          }
+        ],
+        "services.lawncare": [
+          {
+            "answer": "Yes! We provide complete lawn care, including mowing, fertilization, and weed control."
+          }
+        ],
+        "services.gardendesign": [
+          {
+            "answer": "Yes! Our garden design service includes plant selection, layout planning, and installation."
+          }
+        ],
+        "services.maintenance": [
+          {
+            "answer": "Our maintenance service includes regular lawn mowing, hedge trimming, and seasonal clean-ups."
+          }
+        ],
+        "pricing.info": [
+          {
+            "answer": "Here is our pricing list:\n- Landscaping: LKR 100000 - LKR 200000 (based on area)\n- Garden Design: LKR 150000  - LKR 450000\n- Lawn Care: LKR 10000 - LKR 20000 per session\n- Maintenance: LKR 30000 - LKR 150000 per month."
+          }
+        ],
+        "pricing.landscaping": [
+          {
+            "answer": "Our landscaping services range from **LKR 100000 - LKR 200000**, depending on the size and complexity of the project."
+          }
+        ],
+        "pricing.gardendesign": [
+          {
+            "answer": "Garden design services range from **LKR 150000  - LKR 450000**, including plant selection and layout planning."
+          }
+        ],
+        "pricing.lawncare": [
+          {
+            "answer": "Lawn care services cost **LKR 10000 - LKR 20000 per session**, covering mowing, fertilization, and weed control."
+          }
+        ],
+        "pricing.maintenance": [
+          {
+            "answer": "Maintenance services start at **LKR 30000 - LKR 150000 per month**, based on the frequency and services required."
+          }
+        ],
+        "contact.info": [
+          {
+            "answer": "You can reach us at (+94) 123-45678 or email us at contact@greenscape.com."
+          }
+        ],
+        "greetings.bye": [
+          {
+            "answer": "Goodbye! Looking forward to helping you again!"
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}
