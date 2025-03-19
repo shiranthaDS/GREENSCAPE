@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import styles from "./Signup.module.css"; 
+import Swal from "sweetalert2";
+import styles from "./Signup.module.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,17 +18,23 @@ const Login = () => {
       });
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId);
-      localStorage.setItem("email", email); // Store email in localStorage
-      alert("Login successful");
+      localStorage.setItem("email", email);
       
-      // Redirect to homepage first, then to profile page
-      navigate("/"); // Navigate to homepage
-      setTimeout(() => {
-        navigate("/profile"); // Then navigate to profile after a short delay (optional)
-      }, 100); // Add a short delay before redirecting to profile (optional)
-      
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        text: "Welcome to Greenscape!",
+        timer: 2000,
+        showConfirmButton: false,
+      }).then(() => {
+        navigate("/"); // Navigate to homepage
+      });
     } catch (error) {
-      alert(error.response.data.message);
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: error.response?.data?.message || "An error occurred. Please try again.",
+      });
     }
   };
 

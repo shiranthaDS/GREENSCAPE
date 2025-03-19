@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import styles from "./Signup.module.css"; 
 
 const Signup = () => {
@@ -17,10 +18,21 @@ const Signup = () => {
         email,
         password,
       });
-      alert(response.data.message);
-      navigate("/login");
+      Swal.fire({
+        icon: "success",
+        title: "Signup Successful",
+        text:  "Let’s Grow Together!",
+        confirmButtonColor: "#3085d6",
+      }).then(() => {
+        navigate("/login");
+      });
     } catch (error) {
-      alert(error.response.data.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response?.data?.message || "Something went wrong!",
+        confirmButtonColor: "#d33",
+      });
     }
   };
 

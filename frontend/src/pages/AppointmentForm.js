@@ -79,35 +79,193 @@ const AppointmentForm = () => {
 
   return (
     <div className="container">
-      <h2>Book an Appointment</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" required />
-        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
-        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" required />
-        <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Address" required />
-        <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" required />
-        <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
-          <option value="">Select a Service</option>
-          {serviceOptions.map((service, index) => (
-            <option key={index} value={service}>
-              {service}
-            </option>
-          ))}
-        </select>
-        <textarea name="additionalInfo" value={formData.additionalInfo} onChange={handleChange} placeholder="Additional Information"></textarea>
-        <div className="checkbox-container">
-          <input type="checkbox" name="receiveUpdates" checked={formData.receiveUpdates} onChange={handleChange} />
-          <label>Click here & Submit to receive updates & offers</label>
+      <div className="grid-container">
+        {/* Promotional Box */}
+        <div className="promotional-box">
+          <h1>Garden Maintenance Services</h1>
+          <p className="offer">Get <strong>Free!</strong></p>
+          <p className="subtext">This offer valid only for your first order.</p>
+          <button className="cta-button">GET IT NOW</button>
         </div>
 
-        {/* Button with Loading Spinner */}
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? <div className="spinner"></div> : "Submit"}
-        </button>
-      </form>
+        {/* Appointment Form */}
+        <div className="form-container">
+          
+          <h3>Make an Appointment</h3>
+         <h2>Request for Project Consultation</h2>
+          <form onSubmit={handleSubmit}>
+            <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" required />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
+            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" required />
+            <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Address" required />
+            <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" required />
+            <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
+              <option value="">Select a Service</option>
+              {serviceOptions.map((service, index) => (
+                <option key={index} value={service}>
+                  {service}
+                </option>
+              ))}
+            </select>
+            <textarea name="additionalInfo" value={formData.additionalInfo} onChange={handleChange} placeholder="Additional Information"></textarea>
+            <div className="checkbox-container">
+              <input type="checkbox" name="receiveUpdates" checked={formData.receiveUpdates} onChange={handleChange} />
+              <label>Click here & Submit to receive updates & offers</label>
+            </div>
 
-      {/* CSS for Spinner */}
+            {/* Button with Loading Spinner */}
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? <div className="spinner"></div> : "Submit"}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* CSS for Layout and Styling */}
       <style jsx>{`
+        .container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          background-color:rgba(10, 0, 0, 0.27);
+          padding: 20px;
+          transform: scale(0.9);
+        }
+
+        .grid-container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          max-width: 1200px;
+          min-height: 600px;
+          width: 100%;
+          background-color: #fff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
+          overflow: hidden;
+         trasform: scale(0.9);
+        }
+
+        .promotional-box {
+          background-image: url('/imges/pr.jpg'); /* Add your image path here */
+          background-size: cover;
+          background-position: center;
+          color: white;
+          padding: 40px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          position: relative;
+        }
+
+        .promotional-box::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+          z-index: 1;
+        }
+
+        .promotional-box h1 {
+          font-size: 2.5rem;
+          margin-bottom: 20px;
+          position: relative;
+          z-index: 2;
+        }
+
+        .promotional-box .offer {
+          font-size: 2rem;
+          margin-bottom: 10px;
+          position: relative;
+          z-index: 2;
+        }
+
+        .promotional-box .subtext {
+          font-size: 1rem;
+          margin-bottom: 20px;
+          position: relative;
+          z-index: 2;
+        }
+
+        .promotional-box .cta-button {
+          background-color: #28a745;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          font-size: 1rem;
+          cursor: pointer;
+          border-radius: 5px;
+          transition: 0.3s;
+          position: relative;
+          z-index: 2;
+        }
+
+        .promotional-box .cta-button:hover {
+          background-color: #218838;
+        }
+
+        .form-container {
+          padding: 40px;
+          background-color: white;
+        }
+
+        .form-container h2 {
+          font-size: 2rem;
+          margin-bottom: 20px;
+        }
+
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 15px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 1rem;
+        }
+
+        .form-container textarea {
+          resize: vertical;
+          height: 100px;
+        }
+
+        .checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Aligns checkbox and text to the left */
+  font-size: 0.9rem; /* Slightly smaller text */
+  margin-bottom: 15px;
+}
+
+.checkbox-container input {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px; /* Adjust checkbox size */
+}
+        .form-container button {
+          width: 100%;
+          padding: 10px;
+          background-color: #28a745;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .form-container button:disabled {
+          background-color: #6c757d;
+          cursor: not-allowed;
+        }
+
         .spinner {
           width: 20px;
           height: 20px;
@@ -126,24 +284,18 @@ const AppointmentForm = () => {
           }
         }
 
-        button {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 40px;
-          width: 100%;
-          background-color: #28a745;
-          color: white;
-          font-size: 16px;
-          border: none;
-          cursor: pointer;
-          transition: 0.3s;
-        }
+        @media (max-width: 768px) {
+          .grid-container {
+            grid-template-columns: 1fr;
+          }
 
-        button:disabled {
-          background-color: #6c757d;
-          cursor: not-allowed;
+          .promotional-box {
+            padding: 20px;
+          }
+
+          .form-container {
+            padding: 20px;
+          }
         }
       `}</style>
     </div>
