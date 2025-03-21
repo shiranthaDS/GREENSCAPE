@@ -1,0 +1,99 @@
+.services-section {
+    text-align: center;
+    padding: 40px;
+    background-color: #fff;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #228B22;
+}
+
+.section-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.scroll-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.scroll-btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 200%;
+    margin: 0 10px;
+    transition: background 0.3s;
+}
+
+.scroll-btn:hover {
+    background-color: #1e7e1e;
+}
+
+.service-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+    gap: 15px;
+    scrollbar-width: none; /* Hide scrollbar */
+}
+
+.service-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+}
+
+.service-card {
+    min-width: 250px;
+    max-width: 300px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+    padding: 15px;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.service-card h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.service-card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.service-card a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #228B22;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.service-card a:hover {
+    color: #1e7e1e;
+}

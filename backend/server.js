@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
+const path = require("path");
+const serviceRoutes = require("./routes/serviceRoutes");
+
 
 const appointmentRoutes = require("./routes/appointmentRoutes");
 
@@ -14,7 +17,8 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/services", serviceRoutes);
 // MongoDB Connection
 mongoose
   .connect(process.env.MONGODB_URL, {

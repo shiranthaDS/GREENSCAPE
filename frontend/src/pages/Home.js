@@ -4,6 +4,7 @@ import { Menu, X, ChevronLeft, ChevronRight, Leaf, Droplet, Shovel, Scissors, Ma
 import "./Home.css";
 import { LogIn, User } from "lucide-react";
 import AppointmentForm from "./AppointmentForm";
+import ServiceList from "./ServiceList";
 
 
 const Home = () => {
@@ -174,9 +175,7 @@ const Home = () => {
         <div className="hero-content">
         <h1>Transform Your Outdoor Space</h1>
         <p>Professional landscaping services for the perfect garden</p>
-          <button className="hero-cta" onClick={() => scrollToSection("#contact")}>
-            Get a Free Quote
-          </button>
+          
         </div>
 
         <div className="slide-info">
@@ -220,6 +219,7 @@ const Home = () => {
           ))}
         </div>
       </section>
+      <ServiceList/>
       <AppointmentForm />
       {/* Contact Section */}
       <section id="contact" className="contact-section">
