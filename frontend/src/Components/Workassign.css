@@ -1,0 +1,47 @@
+.search-work{
+    padding: 8px 12px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    justify-content: flex-end;
+  }
+  
+  .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+  }
+  
+  .btn-light-green {
+    background-color: transparent; /* Make background transparent */
+    border: 2px solid #90ee90; /* Light green border */
+    color: #90ee90; /* Light green text color */
+  }
+  
+  .btn-light-green:hover {
+    background-color: #90ee90; /* Light green background on hover */
+    border-color: #76e076; /* Darker green border on hover */
+    color: white; /* White text color on hover */
+  }
+  .btn-generate-report {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Add padding */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 13px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .btn-generate-report:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .generate-report-container {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    margin-bottom: 20px; /* Add spacing below */
+  }

@@ -17,4 +17,3 @@ const jobSchema = new Schema(
 const Job = smongoose.model("Job", jobSchema);
 
 module.exports = Job;
-//iuytreuytfd

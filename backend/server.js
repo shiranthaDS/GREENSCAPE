@@ -26,6 +26,16 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
+const employeeRouter = require("./routes/employee.js");
+const taskRouter = require("./routes/taskRoutes.js");
+const workRouter = require("./routes/work.js");
+
+
+app.use("/employee", employeeRouter);
+app.use("/task", taskRouter);
+app.use("/work",workRouter);
+
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

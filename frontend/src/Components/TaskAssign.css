@@ -1,0 +1,40 @@
+/* CSS for reducing the size of the bar chart */
+.chart-container {
+    width: 80%;        /* Adjust the width to your preference */
+    max-width: 600px;  /* Optional: Limit the maximum width */
+    height: 300px;     /* Set the height of the chart */
+    margin: 0 auto;    /* Center the chart horizontally */
+  }
+  
+  /* Optional: Add some styling to the chart canvas */
+  .chart-container canvas {
+    width: 100% !important;  /* Make the canvas fill the container */
+    height: 100% !important; /* Ensure the canvas fills the container's height */
+  }
+  .search-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .search-Task{
+    padding: 8px 12px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+  }
+  
+  .mb-4 {
+    display: flex;
+    justify-content: flex-end; /* Align the search bar to the left */
+  }

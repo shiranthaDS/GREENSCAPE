@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+
+import AllEmployee from './Components/AllEmployee';
+import AddEmployee from "./Components/AddEmployee";
+import TaskAssign from "./Components/TaskAssign";
+import TaskAssignForm from "./Components/TaskAssignForm";
+import UpdateTask from "./Components/UpdateTask"; // Import UpdateTask component
+import WorkAssign from "./Components/WorkAssign"; // Keep only one import for WorkAssign
+import WorkAssignForm from "./Components/WorkAssignForm";
+import UpdateWork from "./Components/UpdateWork";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Sidebar from './Components/Sidebar';
+import './Components/Sidebar.css'; 
+import './Components/AllEmployee.css';
+import Dashboard from "./Components/Dashboard";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="flex">
+        <Sidebar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/all" element={<AllEmployee />} />
+            <Route path="/add" element={<AddEmployee />} />
+            <Route path="/task" element={<TaskAssign />} />
+            <Route path="/assign-task" element={<TaskAssignForm />} />
+            <Route path="/update-task/:id" element={<UpdateTask />} /> {/* Add this route */}
+            <Route path="/work" element={<WorkAssign />} />
+            <Route path="/assign-work" element={<WorkAssignForm />} />
+            <Route path="/update-work/:id" element={<UpdateWork />} />
+          
+            
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 
