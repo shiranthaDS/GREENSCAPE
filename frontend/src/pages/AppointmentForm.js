@@ -15,7 +15,7 @@ const AppointmentForm = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const serviceOptions = ["Lawn Care", "Tree Trimming", "Garden Design", "Irrigation Installation"];
+  const serviceOptions = ["Landscaping", "Garden Design", "Interlock Paving", "Irrigation Systems", "Green Walls", "Lawn Care", "Waterfalls and Ponds", "Trimming and sizing plants", "Flower and Plant services"];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
