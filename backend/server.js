@@ -2,23 +2,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const authRoutes = require("./routes/auth");
-const path = require("path");
-const serviceRoutes = require("./routes/serviceRoutes");
-
-
-const appointmentRoutes = require("./routes/appointmentRoutes");
 
 // Load environment variables from .env
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(express.json());
+// Middleware setup
 app.use(cors());
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use("/api/services", serviceRoutes);
+
 // MongoDB Connection
 mongoose
   .connect(process.env.MONGODB_URL, {
@@ -36,10 +29,3 @@ app.get("/", (req, res) => {
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-// Routes
-app.use("/api/appointments", appointmentRoutes);
-
-
-// Routes
-app.use("/api/auth", authRoutes);
-

@@ -1,0 +1,168 @@
+/* Navbar Styling */
+.navbar {
+  background-color: #6EA95F;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure logos stay on the left */
+.navbar .navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  height: 50px;
+  margin-right: 20px;
+}
+
+/* Center the links */
+.navbar .navbar-links {
+  display: flex;
+  justify-content: center; /* Center the links */
+  flex: 1; /* Allow this container to grow and take up space */
+  gap: 30px; /* Space between topics */
+}
+
+/* Link Styling */
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 25px;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #f0e68c;
+  text-decoration: underline;
+}
+
+/* Dropdown Styling */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 25px; /* Match other links */
+  background: none;
+  border: none;
+  outline: none;
+  transition: color 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+  color: #f0e68c; /* Hover effect to match other links */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #6EA95F;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #5FAB4C;
+}
+
+/* Feedback Form Styling */
+.feedback-form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #6EA95F, #A7D080);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.feedback-form h2 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.feedback-form .form-group {
+  margin-bottom: 20px;
+}
+
+.feedback-form input,
+.feedback-form select,
+.feedback-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.feedback-form textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.feedback-form .form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedback-form .submit-button {
+  background-color: #00bfa6;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.feedback-form .submit-button:hover {
+  background-color: #009688;
+}
+
+.feedback-form .clear-button {
+  background-color: #f44336;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.feedback-form .clear-button:hover {
+  background-color: #e53935;
+}
+
+/* Rating styling (optional, can adjust based on StarRating component) */
+.rating-stars {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
