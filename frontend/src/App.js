@@ -21,7 +21,7 @@ function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="table" element={<AdminAppointments />} />
           <Route path="manage-services" element={<AdminServiceForm />} />
-          <Route path="project" element={<AppointmentList />} />
+          <Route path="project" element={<AppointmentList />} /> 
           <Route path="calendar" element={<AdminAppointmentsCalendar />} />
           <Route path="analysis" element={<ServicesDemandAnalysis />} />
         </Route>
