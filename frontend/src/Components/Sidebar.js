@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css"; // Ensure this path is correct
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTachometerAlt, faUsers, faTasks, faClock, faBriefcase, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar() {
   return (
@@ -9,33 +11,33 @@ function Sidebar() {
       <hr />
       <ul className="nav nav-pills flex-column mb-auto">
         <li className="nav-item">
-          <NavLink to="/dashboard" className="nav-link text-white active">
-            <i className="bi bi-speedometer2"></i> Dashboard
+          <NavLink to="/dashboard" className="nav-link text-white">
+            <FontAwesomeIcon icon={faTachometerAlt} /> Dashboard
           </NavLink>
         </li>
         <li>
           <NavLink to="/all" className="nav-link text-white">
-            <i className="bi bi-people"></i> Employee
+            <FontAwesomeIcon icon={faUsers} /> Employee
           </NavLink>
         </li>
         <li>
           <NavLink to="/task" className="nav-link text-white">
-            <i className="bi bi-calendar"></i> Task Assign
+            <FontAwesomeIcon icon={faTasks} /> Task Assign
           </NavLink>
         </li>
         <li>
           <NavLink to="/work" className="nav-link text-white">
-            <i className="bi bi-calendar"></i> Working Hours
+            <FontAwesomeIcon icon={faClock} /> Working Hours
           </NavLink>
         </li>
         <li>
-          <NavLink to="/career" className="nav-link text-white">
-            <i className="bi bi-gear"></i> Job Opportunities
+          <NavLink to="/add-job" className="nav-link text-white">
+            <FontAwesomeIcon icon={faBriefcase} /> Add Job Opportunity
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Registration" className="nav-link text-white">
-            <i className="bi bi-gear"></i> signout
+          <NavLink to="/registration" className="nav-link text-white">
+            <FontAwesomeIcon icon={faSignOutAlt} /> Signout
           </NavLink>
         </li>
       </ul>

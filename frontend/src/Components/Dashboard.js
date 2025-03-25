@@ -47,7 +47,7 @@ const Dashboard = () => {
 
       <div className="content">
         <div className="header-box">
-          <h1 className="dashboard-title">Welcome to the Employee Management Dashboard</h1>
+          <h1 className="dashboard-title">Welcome to the Employee Management System</h1>
           <p className="dashboard-date">Today's Date: {currentDate}</p>
         </div>
 

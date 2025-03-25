@@ -1,75 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const Task = require("../models/Task");
+const taskController = require("../controllers/taskController");
 
-// Add a new task
-router.post("/add", async (req, res) => {
-  try {
-    const { employeeId, ename, email, role, projectId, projectLocation, startDate, progress } = req.body;
-
-    const newTask = new Task({
-      employeeId,
-      ename,
-      email,
-      role,
-      projectId,
-      projectLocation,
-      startDate,
-      progress,
-    });
-
-    await newTask.save();
-    res.status(201).json({ message: "Task added successfully", task: newTask });
-  } catch (err) {
-    console.error("Error adding task:", err);
-    res.status(500).json({ error: "Failed to add task", details: err.message });
-  }
-});
-
-// Get all tasks
-router.get("/", async (req, res) => {
-  try {
-    const tasks = await Task.find();
-    res.status(200).json(tasks);
-  } catch (err) {
-    console.error("Error fetching tasks:", err);
-    res.status(500).json({ error: "Failed to fetch tasks" });
-  }
-});
-
-// Update a task
-router.put("/update/:id", async (req, res) => {
-  try {
-    const { employeeId, ename, email, role, projectId, projectLocation, startDate, progress } = req.body;
-    const updatedTask = await Task.findByIdAndUpdate(
-      req.params.id,
-      { employeeId, ename, email, role, projectId, projectLocation, startDate, progress },
-      { new: true }
-    );
-
-    if (!updatedTask) {
-      return res.status(404).json({ error: "Task not found" });
-    }
-
-    res.status(200).json({ message: "Task updated successfully", task: updatedTask });
-  } catch (err) {
-    console.error("Error updating task:", err);
-    res.status(500).json({ error: "Failed to update task", details: err.message });
-  }
-});
-
-// Delete a task
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const deletedTask = await Task.findByIdAndDelete(req.params.id);
-    if (!deletedTask) {
-      return res.status(404).json({ error: "Task not found" });
-    }
-    res.status(200).json({ message: "Task deleted successfully" });
-  } catch (err) {
-    console.error("Error deleting task:", err);
-    res.status(500).json({ error: "Failed to delete task", details: err.message });
-  }
-});
+router.post("/add", taskController.addTask);
+router.get("/", taskController.getAllTasks);
+router.put("/update/:id", taskController.updateTask);
+router.delete("/delete/:id", taskController.deleteTask);
 
 module.exports = router;

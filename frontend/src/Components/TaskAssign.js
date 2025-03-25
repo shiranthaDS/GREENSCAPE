@@ -66,6 +66,7 @@ const TaskAssign = () => {
     );
   });
 
+
   // Group tasks by employeeId
   const groupedTasks = searchFilteredTasks.reduce((acc, task) => {
     if (!acc[task.employeeId]) {
@@ -206,34 +207,40 @@ const TaskAssign = () => {
   };
    
 
-  // Calculate progress stats for the bar chart
-  const progressCounts = searchFilteredTasks.reduce((acc, task) => {
-    acc[task.progress] = (acc[task.progress] || 0) + 1;
-    return acc;
-  }, {});
-
-  const chartData = {
-    labels: ["Completed", "In Progress", "On Hold"],
-    datasets: [
-      {
-        label: "Task Progress",
-        data: [
-          progressCounts["Completed"] || 0,
-          progressCounts["In Progress"] || 0,
-          progressCounts["On Hold"] || 0
-        ],
-        backgroundColor: ["#2E7D32", "#8D6E63", "#FDD835"],
-        borderColor: ["#2E7D32", "#8D6E63", "#FDD835"],
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    height: 300, // Set the height to reduce chart size
-  };
+    // Filter unique tasks by project ID for the chart
+    const uniqueTasks = searchFilteredTasks.filter((task, index, self) =>
+      index === self.findIndex((t) => t.projectId === task.projectId)
+    );
+  
+    // Calculate progress stats for the bar chart using unique tasks
+    const progressCounts = uniqueTasks.reduce((acc, task) => {
+      acc[task.progress] = (acc[task.progress] || 0) + 1;
+      return acc;
+    }, {});
+  
+    const chartData = {
+      labels: ["Completed", "In Progress", "On Hold"],
+      datasets: [
+        {
+          label: "Task Progress",
+          data: [
+            progressCounts["Completed"] || 0,
+            progressCounts["In Progress"] || 0,
+            progressCounts["On Hold"] || 0,
+          ],
+          backgroundColor: ["#2E7D32", "#8D6E63", "#FDD835"],
+          borderColor: ["#2E7D32", "#8D6E63", "#FDD835"],
+          borderWidth: 1,
+        },
+      ],
+    };
+  
+    const chartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      height: 300, // Set the height to reduce chart size
+    };
+  
 
   return (
     <div className="mt-5 table-container">

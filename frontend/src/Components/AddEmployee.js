@@ -38,11 +38,14 @@ export default function AddEmployee() {
   }, [location.state]);
 
   const validateField = (field, value) => {
+    const namePattern = /^[A-Za-z. ]+$/; // Only English letters, spaces, and periods
     const nicPattern = /^(\d{12}|\d{9}[Vv])$/; // 12 digits or 9 digits followed by 'V'
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email format
     const phonePattern = /^\+94\d{9}$/; // Sri Lankan phone number format
-
+  
     switch (field) {
+      case "name":
+        return namePattern.test(value) ? "" : "Name can only contain letters, spaces, and periods.";
       case "nic":
         return nicPattern.test(value) ? "" : "NIC must be 12 digits or 9 digits followed by 'V'";
       case "email":
@@ -53,9 +56,13 @@ export default function AddEmployee() {
         return "";
     }
   };
-
+  
   const handleInputChange = (field, value) => {
     switch (field) {
+      case "name":
+        setName(value);
+        setErrors((prevErrors) => ({ ...prevErrors, name: validateField("name", value) }));
+        break;
       case "nic":
         setNIC(value);
         setErrors((prevErrors) => ({ ...prevErrors, nic: validateField("nic", value) }));
@@ -72,13 +79,14 @@ export default function AddEmployee() {
         break;
     }
   };
-
+  
   const validate = () => {
     const errors = {};
+    errors.name = validateField("name", name);
     errors.nic = validateField("nic", nic);
     errors.email = validateField("email", email);
     errors.phone = validateField("phone", phone);
-
+  
     setErrors(errors);
     return Object.keys(errors).every((key) => !errors[key]);
   };
@@ -150,17 +158,18 @@ export default function AddEmployee() {
     <div className="container form-container">
       <h2 className="page-header">{isUpdate ? "UPDATE EMPLOYEE DETAILS" : "REGISTER NEW EMPLOYEE"}</h2>
       <form onSubmit={sendData} className="form-content">
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            placeholder="Enter name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
+      <div className="form-group">
+  <label htmlFor="name">Name</label>
+  <input
+    type="text"
+    className="form-control"
+    id="name"
+    placeholder="Enter name"
+    value={name}
+    onChange={(e) => handleInputChange("name", e.target.value)}
+  />
+  {errors.name && <div className="text-danger">{errors.name}</div>}
+</div>
 
         <div className="form-group">
           <label htmlFor="nic">NIC</label>
@@ -262,7 +271,6 @@ export default function AddEmployee() {
   >
     <option value="">Select Type</option>
     <option value="Landscape Architect">Landscape Architect</option>
-    <option value="Landscaper">Landscaper</option>
     <option value="Garden Designer">Garden Designer </option>
     <option value="Project Estimator ">Project Estimator</option>
     <option value="Gardener">Gardener</option>

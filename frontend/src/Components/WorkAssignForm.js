@@ -67,6 +67,48 @@ export default function WorkAssignForm() {
     }
   };
 
+  const handleWorkingDaysChange = (e) => {
+    const value = e.target.value;
+    const numberPattern = /^[0-9]*$/; // Only numbers
+    if (numberPattern.test(value)) {
+      setWorkingDate(value); // Update state only if valid
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Working days can only contain numbers.",
+      });
+    }
+  };
+
+  const handleOTHoursChange = (e) => {
+    const value = e.target.value;
+    const decimalPattern = /^[0-9]*\.?[0-9]*$/; // Numbers and optional decimal point
+    if (decimalPattern.test(value)) {
+      setOTHours(value); // Update state only if valid
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "OT Hours can only contain numbers and a decimal point.",
+      });
+    }
+  };
+
+  const handleLeaveHoursChange = (e) => {
+    const value = e.target.value;
+    const decimalPattern = /^[0-9]*\.?[0-9]*$/; // Numbers and optional decimal point
+    if (decimalPattern.test(value)) {
+      setLeaveHours(value); // Update state only if valid
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Leave Hours can only contain numbers and a decimal point.",
+      });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -160,7 +202,7 @@ export default function WorkAssignForm() {
               className="form-control"
               name="workingDate"
               value={workingDate}
-              onChange={(e) => setWorkingDate(e.target.value)}
+              onChange={handleWorkingDaysChange}
               required
             />
           </div>
@@ -175,7 +217,7 @@ export default function WorkAssignForm() {
               className="form-control"
               name="otHours"
               value={otHours}
-              onChange={(e) => setOTHours(e.target.value)}
+              onChange={handleOTHoursChange}
               required
             />
           </div>
@@ -186,7 +228,7 @@ export default function WorkAssignForm() {
               className="form-control"
               name="leaveHours"
               value={leaveHours}
-              onChange={(e) => setLeaveHours(e.target.value)}
+              onChange={handleLeaveHoursChange}
               required
             />
           </div>

@@ -1,0 +1,148 @@
+/* Layout Styling */
+.admin-page1 {
+    background: #ffffff;
+     padding: 20px;
+     border-radius: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+     max-width: 1200px;
+     margin: 20px auto;
+     font-family: Arial, sans-serif;
+     
+ }
+ 
+ /* Form Section Styling */
+ .form-section {
+   flex: 1;
+   background: #78eb85a2;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   gap: 30px;  
+   border: 1px solid #302a2a85; 
+ }
+ 
+ .add-job-form h2 {
+   font-size: 20px;
+   margin-bottom: 15px;
+ }
+ 
+ .add-job-form input {
+   display: block;
+   width: 100%;
+   margin-bottom: 10px;
+   padding: 8px;
+   font-size: 14px;
+   border: 1px solid #96f37fcb;
+   border-radius: 5px;
+ }
+ 
+ .add-job-form button {
+   background-color: #2E7D32;
+   color: white;
+   border: none;
+   padding: 10px;
+   font-size: 14px;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+ 
+ .add-job-form button:hover {
+   background-color: #0056b3;
+ }
+ 
+ /* Jobs Section Styling */
+ .jobs-section {
+   flex: 2;
+   background: #85f98d96;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   gap: 30px; 
+   border: 1px solid #302a2a85;   
+ }
+ 
+ .jobs-section h2 {
+   font-size: 20px;
+   margin-bottom: 15px;
+ }
+ 
+ .job-list {
+   display: flex;
+   flex-direction: column;
+   gap: 1px;
+ }
+ 
+ .job-card {
+   background: #f8f9fa;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   padding: 15px;
+   width: 100%;
+   text-align: left;
+ }
+ 
+ .job-summary {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background-color: #fff;
+ }
+ 
+ .job-summary h4 {
+   font-size: 16px;
+   margin: 0;
+ }
+ 
+ .toggle-btn {
+   background: none;
+   border: none;
+   font-size: 14px;
+   cursor: pointer;
+   color: #007bff;
+ }
+ 
+ .toggle-btn:hover {
+   color: #0056b3;
+ }
+ 
+ .job-actions {
+   display: flex;
+   gap: 10px;
+ }
+ 
+ .update-btn, .delete-btn {
+   padding: 3px 6px;
+   border: none;
+   border-radius: 3px;
+   cursor: pointer;
+ }
+ 
+ .update-btn {
+   background-color: #28a745;
+   color: white;
+ }
+ 
+ .update-btn:hover {
+   background-color: #218838;
+ }
+ 
+ .delete-btn {
+   background-color: #dc3545;
+   color: white;
+ }
+ 
+ .delete-btn:hover {
+   background-color: #c82333;
+ }
+ 
+ .job-details {
+   padding: 10px;
+   font-size: 14px;
+   color: #555;
+ }
+ 
+   body {
+    
+     background-color: #458b51;
+   }
+  
