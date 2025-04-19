@@ -13,6 +13,14 @@ const WorkSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  nic: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
   workingDate: {
     type: Number,
     required: true,

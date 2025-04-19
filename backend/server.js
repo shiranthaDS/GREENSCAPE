@@ -1,43 +1,71 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
 const cors = require("cors");
+const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
 
-// Load environment variables from .env
+
+// Import your routes
+const employeeRouter = require("./routes/employee.js");
+const taskRouter = require("./routes/taskRoutes.js");
+const workRouter = require("./routes/work.js");
+const jobRouter = require("./routes/jobs");
+const jobApplicationRouter = require("./routes/JobApplication.js");
+
+// Initialize the app
+const app = express();
 dotenv.config();
 
-const app = express();
+const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(express.json());
 app.use(cors());
+app.use(bodyParser.json());
+app.use("/uploads", express.static("uploads")); // Serve uploaded files
 
-// MongoDB Connection
+
+// MongoDB connection
+const URL = process.env.MONGODB_URL;
+
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// Sample Route
-app.get("/", (req, res) => {
-  res.send("API is running...");
+// Email transporter configuration
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASSWORD,
+  },
 });
 
-// Routes
-const employeeRouter = require("./routes/employee.js");
-const taskRouter = require("./routes/taskRoutes.js");
-const workRouter = require("./routes/work.js");
+app.locals.sendEmail = async (recipient, subject, text) => {
+  try {
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: recipient,
+      subject: subject,
+      text: text,
+    };
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully.");
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+};
 
+// Routes
 app.use("/employee", employeeRouter);
 app.use("/task", taskRouter);
-app.use("/work", workRouter);
+app.use("/work",workRouter);
+app.use("/jobs", jobRouter);
+app.use("/jobApplications", jobApplicationRouter);
 
-// Start Server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, (err) => {
-  if (err) {
-    console.error(`❌ Error starting server: ${err.message}`);
-  } else {
-    console.log(`🚀 Server running on port ${PORT}`);
-  }
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running on port: ${PORT}`);
 });

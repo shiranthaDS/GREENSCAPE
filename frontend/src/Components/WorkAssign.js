@@ -13,8 +13,21 @@ const WorkAssignTable = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [selectedRole, setSelectedRole] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(""); // State to track the search query
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+
+  // Calculate the minimum allowed month (5 months back from current)
+  const calculateMinAllowedMonth = () => {
+    const today = new Date();
+    const minAllowedDate = new Date();
+    minAllowedDate.setMonth(today.getMonth() - 5);
+    return {
+      month: minAllowedDate.getMonth() + 1,
+      year: minAllowedDate.getFullYear()
+    };
+  };
+
+  const minAllowed = calculateMinAllowedMonth();
 
   const fetchWorkAssignments = async () => {
     try {
@@ -44,6 +57,7 @@ const WorkAssignTable = () => {
 
   const roles = Object.keys(workByRole);
 
+  //search filter
   const filteredBySearch = (work) => {
     if (!searchQuery) return true;
     const lowercasedQuery = searchQuery.toLowerCase();
@@ -54,6 +68,11 @@ const WorkAssignTable = () => {
   };
 
   const handlePreviousMonth = () => {
+    // Check if we've reached the minimum allowed month
+    if (currentMonth === minAllowed.month && currentYear === minAllowed.year) {
+      return;
+    }
+    
     if (currentMonth === 1) {
       setCurrentMonth(12);
       setCurrentYear(currentYear - 1);
@@ -63,12 +82,29 @@ const WorkAssignTable = () => {
   };
 
   const handleNextMonth = () => {
+    const today = new Date();
+    // Check if we're already at current month
+    if (currentMonth === today.getMonth() + 1 && currentYear === today.getFullYear()) {
+      return;
+    }
+    
     if (currentMonth === 12) {
       setCurrentMonth(1);
       setCurrentYear(currentYear + 1);
     } else {
       setCurrentMonth(currentMonth + 1);
     }
+  };
+
+  // Check if previous month button should be disabled
+  const isPreviousDisabled = () => {
+    return currentMonth === minAllowed.month && currentYear === minAllowed.year;
+  };
+
+  // Check if next month button should be disabled
+  const isNextDisabled = () => {
+    const today = new Date();
+    return currentMonth === today.getMonth() + 1 && currentYear === today.getFullYear();
   };
 
   const startEditing = (work) => {
@@ -127,7 +163,7 @@ const WorkAssignTable = () => {
     doc.text(`Month: ${monthYear}`, 15, 60); // Month and year
   
     // Table Headers
-    const tableColumn = ["Employee ID", "Name", "Number of days worked", "OT Hours", "Leave Hours", "Estimated Date"];
+    const tableColumn = ["Employee ID", "Name", "NIC", "Type", "Number of days worked", "Weekdays OT Hours", "Weekend OT Hours", "Estimated Date"];
   
     // Filtered Work Data
     const tableRows = workAssignments
@@ -138,6 +174,8 @@ const WorkAssignTable = () => {
       .map((work) => [
         work.employeeId,
         work.ename,
+        work.nic,
+        work.status,
         work.workingDate,
         work.otHours,
         work.leaveHours,
@@ -155,13 +193,13 @@ const WorkAssignTable = () => {
     });
   
     // Calculate total OT and Leave Hours
-    const totalOtHours = tableRows.reduce((sum, row) => sum + Number(row[3] || 0), 0);
-    const totalLeaveHours = tableRows.reduce((sum, row) => sum + Number(row[4] || 0), 0);
+    const totalOtHours = tableRows.reduce((sum, row) => sum + Number(row[5] || 0), 0);
+    const totalLeaveHours = tableRows.reduce((sum, row) => sum + Number(row[6] || 0), 0);
   
     // Summary Section
     doc.setFontSize(12);
-    doc.text(`Total OT Hours: ${totalOtHours}`, 15, doc.lastAutoTable.finalY + 10);
-    doc.text(`Total Leave Hours: ${totalLeaveHours}`, 15, doc.lastAutoTable.finalY + 20);
+    doc.text(`Total Weekdays OT Hours: ${totalOtHours}`, 15, doc.lastAutoTable.finalY + 10);
+    doc.text(`Total Weekend OT Hours: ${totalLeaveHours}`, 15, doc.lastAutoTable.finalY + 20);
   
     // Signature Section
     doc.text("__________________________", 140, doc.lastAutoTable.finalY + 40);
@@ -184,13 +222,21 @@ const WorkAssignTable = () => {
       </button>
 
       <div className="d-flex justify-content-between mb-3">
-        <button className="btn btn-secondary" onClick={handlePreviousMonth}>
+        <button 
+          className="btn btn-secondary" 
+          onClick={handlePreviousMonth}
+          disabled={isPreviousDisabled()}
+        >
           Previous Month
         </button>
         <h4>
           {new Date(currentYear, currentMonth - 1).toLocaleString("default", { month: "long" })} {currentYear}
         </h4>
-        <button className="btn btn-secondary" onClick={handleNextMonth}>
+        <button 
+          className="btn btn-secondary" 
+          onClick={handleNextMonth}
+          disabled={isNextDisabled()}
+        >
           Next Month
         </button>
       </div>
@@ -225,54 +271,60 @@ const WorkAssignTable = () => {
       </div>
 
       <div className="table-responsive">
-        <h3 className="text-center">
-          {selectedRole ? `${selectedRole} Working Hours` : "Working Hours"}
-        </h3>
-        <table className="table table-striped table-bordered mt-4">
-          <thead>
-            <tr>
-              <th>Employee ID</th>
-              <th>Employee Name</th>
-              <th>Number of days worked</th>
-              <th>OT Hours</th>
-              <th>Leave Hours</th>
-              <th>Estimated Completion Date</th>
-              <th>Actions</th>
+  <h3 className="text-center">
+    {selectedRole ? `${selectedRole} Working Hours` : "Working Hours"}
+  </h3>
+  <table className="table table-striped table-bordered mt-4">
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Employee Name</th>
+        <th>NIC</th> {/* New Column for NIC */}
+        <th>Employee Type</th> {/* New Column for Employee Type */}
+        <th>Number of days worked</th>
+        <th>Weekdays OT Hours</th>
+        <th>Weekend OT Hours</th>
+        <th>Estimated Completion Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {selectedRole
+        ? workByRole[selectedRole]?.filter(filteredBySearch).map((work) => (
+            <tr key={work._id}>
+              <td>{work.employeeId}</td>
+              <td>{work.ename}</td>
+              <td>{work.nic}</td> {/* Display NIC */}
+              <td>{work.status}</td> {/* Display Employee Type */}
+              <td>{work.workingDate}</td>
+              <td>{work.otHours}</td>
+              <td>{work.leaveHours}</td>
+              <td>{work.estimateDate ? new Date(work.estimateDate).toLocaleDateString() : "N/A"}</td>
+              <td>
+                <FontAwesomeIcon icon={faEdit} className="icon icon-edit mx-2" onClick={() => startEditing(work)} />
+                <FontAwesomeIcon icon={faTrash} className="icon icon-delete mx-2" onClick={() => deleteWorkAssign(work._id)} />
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {selectedRole
-              ? workByRole[selectedRole]?.filter(filteredBySearch).map((work) => (
-                  <tr key={work._id}>
-                    <td>{work.employeeId}</td>
-                    <td>{work.ename}</td>
-                    <td>{work.workingDate}</td>
-                    <td>{work.otHours}</td>
-                    <td>{work.leaveHours}</td>
-                    <td>{work.estimateDate ? new Date(work.estimateDate).toLocaleDateString() : "N/A"}</td>
-                    <td>
-                      <FontAwesomeIcon icon={faEdit} className="icon icon-edit mx-2" onClick={() => startEditing(work)} />
-                      <FontAwesomeIcon icon={faTrash} className="icon icon-delete mx-2" onClick={() => deleteWorkAssign(work._id)} />
-                    </td>
-                  </tr>
-                ))
-              : filteredWork.filter(filteredBySearch).map((work) => (
-                  <tr key={work._id}>
-                    <td>{work.employeeId}</td>
-                    <td>{work.ename}</td>
-                    <td>{work.workingDate}</td>
-                    <td>{work.otHours}</td>
-                    <td>{work.leaveHours}</td>
-                    <td>{work.estimateDate ? new Date(work.estimateDate).toLocaleDateString() : "N/A"}</td>
-                    <td>
-                      <FontAwesomeIcon icon={faEdit} className="icon icon-edit mx-2" onClick={() => startEditing(work)} />
-                      <FontAwesomeIcon icon={faTrash} className="icon icon-delete mx-2" onClick={() => deleteWorkAssign(work._id)} />
-                    </td>
-                  </tr>
-                ))}
-          </tbody>
-        </table>
-      </div>
+          ))
+        : filteredWork.filter(filteredBySearch).map((work) => (
+            <tr key={work._id}>
+              <td>{work.employeeId}</td>
+              <td>{work.ename}</td>
+              <td>{work.nic}</td> {/* Display NIC */}
+              <td>{work.status}</td> {/* Display Employee Type */}
+              <td>{work.workingDate}</td>
+              <td>{work.otHours}</td>
+              <td>{work.leaveHours}</td>
+              <td>{work.estimateDate ? new Date(work.estimateDate).toLocaleDateString() : "N/A"}</td>
+              <td>
+                <FontAwesomeIcon icon={faEdit} className="icon icon-edit mx-2" onClick={() => startEditing(work)} />
+                <FontAwesomeIcon icon={faTrash} className="icon icon-delete mx-2" onClick={() => deleteWorkAssign(work._id)} />
+              </td>
+            </tr>
+          ))}
+    </tbody>
+  </table>
+</div>
 
       {!selectedRole && <p className="text-center highlight">Select a role to view work Hours.</p>}
     </div>

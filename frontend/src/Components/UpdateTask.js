@@ -86,8 +86,7 @@ const UpdateTask = () => {
             type="text"
             className="form-control"
             value={employeeId}
-            onChange={(e) => setEmployeeId(e.target.value)}
-            required
+            readOnly
           />
         </div>
         <div className="form-group">
@@ -96,8 +95,7 @@ const UpdateTask = () => {
             type="text"
             className="form-control"
             value={ename}
-            onChange={(e) => setName(e.target.value)}
-            required
+            readOnly
           />
         </div>
         <div className="form-group">
@@ -106,8 +104,7 @@ const UpdateTask = () => {
             type="email"
             className="form-control"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            readOnly
           />
           </div>
           <div className="form-group">
@@ -116,8 +113,7 @@ const UpdateTask = () => {
             type="text"
             className="form-control"
             value={role}
-            onChange={(e) => setRole(e.target.value)}
-            required
+            readOnly
           />
         </div>
         <div className="form-group">

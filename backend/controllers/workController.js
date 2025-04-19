@@ -3,12 +3,14 @@ const Work = require("../models/Work");
 // Add a new work record
 exports.addWork = async (req, res) => {
   try {
-    const { employeeId, ename, role, workingDate, otHours, leaveHours, estimateDate } = req.body;
+    const { employeeId, ename, role, nic, status, workingDate, otHours, leaveHours, estimateDate } = req.body;
 
     const newWork = new Work({
       employeeId,
       ename,
       role,
+      nic,
+      status,
       workingDate,
       otHours,
       leaveHours,
@@ -37,10 +39,10 @@ exports.getAllWorks = async (req, res) => {
 // Update a work record
 exports.updateWork = async (req, res) => {
   try {
-    const { employeeId, ename, role, workingDate, otHours, leaveHours, estimateDate } = req.body;
+    const { employeeId, ename, role, nic, status, workingDate, otHours, leaveHours, estimateDate } = req.body;
     const updatedWork = await Work.findByIdAndUpdate(
       req.params.id,
-      { employeeId, ename, role, workingDate, otHours, leaveHours, estimateDate },
+      { employeeId, ename, role, nic, status, workingDate, otHours, leaveHours, estimateDate },
       { new: true }
     );
 

@@ -32,6 +32,14 @@ const TaskAssign = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const navigate = useNavigate();
 
+  // Calculate min and max allowed months (5 months back and 5 months forward)
+  const currentDate = new Date();
+  const minAllowedDate = new Date();
+  minAllowedDate.setMonth(currentDate.getMonth() - 5);
+  
+  const maxAllowedDate = new Date();
+  maxAllowedDate.setMonth(currentDate.getMonth() + 5);
+
   // Fetching task data
   const fetchTasks = () => {
     axios
@@ -56,16 +64,17 @@ const TaskAssign = () => {
     );
   });
 
-  // Apply search filter based on employee ID, project ID, or location
+  // Apply search filter based on employee ID, project ID, location, role, or start date
   const searchFilteredTasks = filteredTasks.filter((task) => {
+    const taskDate = new Date(task.startDate).toLocaleDateString();
     return (
       task.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       task.projectId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       task.projectLocation.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      task.role.toLowerCase().includes(searchQuery.toLowerCase())
+      task.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      taskDate.includes(searchQuery)
     );
   });
-
 
   // Group tasks by employeeId
   const groupedTasks = searchFilteredTasks.reduce((acc, task) => {
@@ -115,8 +124,22 @@ const TaskAssign = () => {
     });
   };
 
+  // Check if previous month button should be disabled
+  const isPreviousDisabled = () => {
+    const currentViewDate = new Date(currentYear, currentMonth - 1);
+    return currentViewDate <= minAllowedDate;
+  };
+
+  // Check if next month button should be disabled
+  const isNextDisabled = () => {
+    const currentViewDate = new Date(currentYear, currentMonth - 1);
+    return currentViewDate >= maxAllowedDate;
+  };
+
   // Handle navigation to the previous month
   const handlePreviousMonth = () => {
+    if (isPreviousDisabled()) return;
+    
     if (currentMonth === 1) {
       setCurrentMonth(12);
       setCurrentYear(currentYear - 1);
@@ -127,6 +150,8 @@ const TaskAssign = () => {
 
   // Handle navigation to the next month
   const handleNextMonth = () => {
+    if (isNextDisabled()) return;
+    
     if (currentMonth === 12) {
       setCurrentMonth(1);
       setCurrentYear(currentYear + 1);
@@ -139,30 +164,30 @@ const TaskAssign = () => {
     const doc = new jsPDF();
   
     // Add Company Logo
-    const logoUrl = "./image/logo.jpeg"; // Replace with the actual path to your logo
-    doc.addImage(logoUrl, "PNG", 15, 10, 40, 20); // Adjust position and size as needed
+    const logoUrl = "./image/logo.jpeg";
+    doc.addImage(logoUrl, "PNG", 15, 10, 40, 20);
   
     // Add Header Section
     doc.setFontSize(18);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(40, 40, 40);
-    doc.text("Greenscape (Pvt)Ltd", 60, 15); // Company name
+    doc.text("Greenscape (Pvt)Ltd", 60, 15);
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.text("No 10 ,New plaza road, Mababe, Sri Lanka", 60, 22); // Address
-    doc.text("Phone: +055 2246 761 | Email: infogreenscape@gmail.com", 60, 28); // Contact details
+    doc.text("No 10 ,New plaza road, Mababe, Sri Lanka", 60, 22);
+    doc.text("Phone: +055 2246 761 | Email: infogreenscape@gmail.com", 60, 28);
   
     // Add Report Title
     doc.setFontSize(18);
     doc.setFont("helvetica", "bold");
-    doc.text("Employee Task Assignment", 15, 50); // Report title
+    doc.text("Employee Task Assignment", 15, 50);
   
     // Add Date, Month, and Year
     const monthYear = `${new Date(currentYear, currentMonth - 1).toLocaleString("default", { month: "long" })} ${currentYear}`;
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 60); // Current date
-    doc.text(`Month: ${monthYear}`, 15, 67); // Current month and year
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 60);
+    doc.text(`Month: ${monthYear}`, 15, 67);
   
     // Table Headers
     const tableColumn = ["Employee ID", "Name", "Email", "Role", "Project ID", "Location", "Start date", "Progress"];
@@ -186,12 +211,12 @@ const TaskAssign = () => {
   
     // Create Table
     autoTable(doc, {
-      startY: 75, // Adjusts table position to start below the header and date
+      startY: 75,
       head: [tableColumn],
       body: tableRows,
       theme: "grid",
       styles: { halign: "center", fontSize: 10 },
-      headStyles: { fillColor: [22, 160, 133] }, // Green header
+      headStyles: { fillColor: [22, 160, 133] },
     });
   
     // Signature Section
@@ -206,41 +231,39 @@ const TaskAssign = () => {
     doc.save(`Task_Assignments_${monthYear}.pdf`);
   };
    
+  // Filter unique tasks by project ID for the chart
+  const uniqueTasks = searchFilteredTasks.filter((task, index, self) =>
+    index === self.findIndex((t) => t.projectId === task.projectId)
+  );
 
-    // Filter unique tasks by project ID for the chart
-    const uniqueTasks = searchFilteredTasks.filter((task, index, self) =>
-      index === self.findIndex((t) => t.projectId === task.projectId)
-    );
-  
-    // Calculate progress stats for the bar chart using unique tasks
-    const progressCounts = uniqueTasks.reduce((acc, task) => {
-      acc[task.progress] = (acc[task.progress] || 0) + 1;
-      return acc;
-    }, {});
-  
-    const chartData = {
-      labels: ["Completed", "In Progress", "On Hold"],
-      datasets: [
-        {
-          label: "Task Progress",
-          data: [
-            progressCounts["Completed"] || 0,
-            progressCounts["In Progress"] || 0,
-            progressCounts["On Hold"] || 0,
-          ],
-          backgroundColor: ["#2E7D32", "#8D6E63", "#FDD835"],
-          borderColor: ["#2E7D32", "#8D6E63", "#FDD835"],
-          borderWidth: 1,
-        },
-      ],
-    };
-  
-    const chartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      height: 300, // Set the height to reduce chart size
-    };
-  
+  // Calculate progress stats for the bar chart using unique tasks
+  const progressCounts = uniqueTasks.reduce((acc, task) => {
+    acc[task.progress] = (acc[task.progress] || 0) + 1;
+    return acc;
+  }, {});
+
+  const chartData = {
+    labels: ["Completed", "In Progress", "On Hold"],
+    datasets: [
+      {
+        label: "Task Progress",
+        data: [
+          progressCounts["Completed"] || 0,
+          progressCounts["In Progress"] || 0,
+          progressCounts["On Hold"] || 0,
+        ],
+        backgroundColor: ["#2E7D32", "#8D6E63", "#FDD835"],
+        borderColor: ["#2E7D32", "#8D6E63", "#FDD835"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    height: 300,
+  };
 
   return (
     <div className="mt-5 table-container">
@@ -257,7 +280,7 @@ const TaskAssign = () => {
         <input
           type="text"
           className="search-Task"
-          placeholder="Search by Employee ID, Project ID, Location or Role"
+          placeholder="Search by Employee ID, Project ID, Location, Role, or Start Date"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -265,13 +288,21 @@ const TaskAssign = () => {
 
       {/* Month and Year Navigation */}
       <div className="d-flex justify-content-between mb-3">
-        <button className="btn btn-secondary" onClick={handlePreviousMonth}>
+        <button 
+          className="btn btn-secondary" 
+          onClick={handlePreviousMonth}
+          disabled={isPreviousDisabled()}
+        >
           Previous Month
         </button>
         <h4>
           {new Date(currentYear, currentMonth - 1).toLocaleString("default", { month: "long" })} {currentYear}
         </h4>
-        <button className="btn btn-secondary" onClick={handleNextMonth}>
+        <button 
+          className="btn btn-secondary" 
+          onClick={handleNextMonth}
+          disabled={isNextDisabled()}
+        >
           Next Month
         </button>
       </div>
@@ -322,11 +353,13 @@ const TaskAssign = () => {
                         icon={faEdit}
                         className="text-primary"
                         onClick={() => startEditing(task)}
+                        style={{ cursor: "pointer" }}
                       />
                       <FontAwesomeIcon
                         icon={faTrash}
                         className="text-danger ml-2"
                         onClick={() => deleteEmployee(task._id)}
+                        style={{ cursor: "pointer" }}
                       />
                     </td>
                   </tr>
@@ -341,10 +374,10 @@ const TaskAssign = () => {
         </table>
       </div>
 
-       {/* Bar Chart */}
-       <div className="chart-container">
-  <Bar data={chartData} options={chartOptions} />
-</div>
+      {/* Bar Chart */}
+      <div className="chart-container">
+        <Bar data={chartData} options={chartOptions} />
+      </div>
     </div>
   );
 };

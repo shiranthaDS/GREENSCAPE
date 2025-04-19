@@ -21,6 +21,15 @@ export default function TaskAssignForm() {
   const [employeeIdError, setEmployeeIdError] = useState("");
   const [projectIdError, setProjectIdError] = useState("");
 
+  // Calculate date range (today to 5 months in future)
+  const today = new Date();
+  const maxDate = new Date();
+  maxDate.setMonth(today.getMonth() + 5);
+  
+  // Format dates for input[type="date"]
+  const todayFormatted = today.toISOString().split("T")[0];
+  const maxDateFormatted = maxDate.toISOString().split("T")[0];
+
   // Fetch employee details from the backend
   const fetchEmployeeDetails = async (id) => {
     try {
@@ -40,6 +49,11 @@ export default function TaskAssignForm() {
       setEmail("");
       setRole("");
     }
+  };
+
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setDate(selectedDate);
   };
 
   // Handle changes in the Employee ID input field with validation
@@ -200,10 +214,13 @@ export default function TaskAssignForm() {
                 className="form-control"
                 name="startDate"
                 value={startDate}
-                onChange={(e) => setDate(e.target.value)}
+                onChange={handleDateChange}
+                min={todayFormatted}
+                max={maxDateFormatted}
                 required
               />
             </div>
+
             <div className="form-group">
               <label>Progress</label>
               <div>

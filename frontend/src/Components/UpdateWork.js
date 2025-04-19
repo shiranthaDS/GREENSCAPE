@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import './UpdateWork.css'; // Import the CSS file
 
 const UpdateWork = () => {
   const { id } = useParams();
@@ -15,10 +16,12 @@ const UpdateWork = () => {
   const [otHours, setOtHours] = useState("");
   const [leaveHours, setLeaveHours] = useState("");
   const [estimateDate, setEstimateDate] = useState("");
+  const [nic, setNic] = useState("");
+  const [employeeStatus, setEmployeeStatus] = useState("");
 
   useEffect(() => {
     if (location.state?.work) {
-      const { employeeId, ename, role, workingDate, otHours, leaveHours, estimateDate } = location.state.work;
+      const { employeeId, ename, role, workingDate, otHours, leaveHours, estimateDate, nic, status } = location.state.work;
       setEmployeeId(employeeId);
       setName(ename);
       setRole(role);
@@ -26,6 +29,8 @@ const UpdateWork = () => {
       setOtHours(otHours);
       setLeaveHours(leaveHours);
       setEstimateDate(estimateDate.split('T')[0]);
+      setNic(nic);
+      setEmployeeStatus(status);
     } else {
       axios.get(`http://localhost:5000/work/get/${id}`)
         .then(response => {
@@ -37,6 +42,8 @@ const UpdateWork = () => {
           setOtHours(work.otHours);
           setLeaveHours(work.leaveHours);
           setEstimateDate(work.estimateDate.split('T')[0]);
+          setNic(work.nic);
+          setEmployeeStatus(work.status);
         })
         .catch(err => console.error("Error fetching work data:", err));
     }
@@ -45,7 +52,7 @@ const UpdateWork = () => {
   const updateData = (e) => {
     e.preventDefault();
     const updatedWork = { employeeId, ename, role, workingDate, otHours, leaveHours, estimateDate };
-    
+
     Swal.fire({
       title: 'Are you sure?',
       text: 'Do you want to update this work record?',
@@ -71,15 +78,24 @@ const UpdateWork = () => {
   };
 
   return (
-    <div className="container">
-      <form onSubmit={updateData}>
+    <div className="update-work-container">
+      <h2 className="form-header">Update Work Record</h2>
+      <form className="update-work-form" onSubmit={updateData}>
         <div className="form-group">
           <label>Employee ID</label>
-          <input type="text" className="form-control" value={employeeId} onChange={(e) => setEmployeeId(e.target.value)} required />
+          <input type="text" className="form-control" value={employeeId} readOnly />
         </div>
         <div className="form-group">
           <label>Employee Name</label>
-          <input type="text" className="form-control" value={ename} onChange={(e) => setName(e.target.value)} required />
+          <input type="text" className="form-control" value={ename} readOnly />
+        </div>
+        <div className="form-group">
+          <label>NIC</label>
+          <input type="text" className="form-control" value={nic} readOnly />
+        </div>
+        <div className="form-group">
+          <label>Employee Type</label>
+          <input type="text" className="form-control" value={employeeStatus} readOnly />
         </div>
         <div className="form-group">
           <label>Role</label>
@@ -90,21 +106,32 @@ const UpdateWork = () => {
           <input type="number" className="form-control" value={workingDate} onChange={(e) => setWorkingDate(e.target.value)} required />
         </div>
         <div className="form-group">
-          <label>OT Hours</label>
+          <label>Weekdays OT Hours</label>
           <input type="number" className="form-control" value={otHours} onChange={(e) => setOtHours(e.target.value)} required />
         </div>
         <div className="form-group">
-          <label>Leave Hours</label>
+          <label>Weekend OT Hours</label>
           <input type="number" className="form-control" value={leaveHours} onChange={(e) => setLeaveHours(e.target.value)} required />
         </div>
         <div className="form-group">
           <label>Estimate Date</label>
-          <input type="date" className="form-control" value={estimateDate} onChange={(e) => setEstimateDate(e.target.value)} required />
+          <input
+            type="date"
+            className="form-control"
+            value={estimateDate}
+            min={new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toISOString().split('T')[0]}
+            max={new Date().toISOString().split('T')[0]}
+            onChange={(e) => setEstimateDate(e.target.value)}
+            required
+          />
         </div>
-        <button type="submit" className="btn btn-primary mt-3">Update Work</button>
-        <button type="button" className="btn btn-secondary mt-3 ml-3" onClick={() => navigate("/work")}>
-          Cancel
-        </button>
+
+        <div className="form-buttons">
+          <button type="submit" className="btn btn-primary">Update Work</button>
+          <button type="button" className="btn btn-secondary" onClick={() => navigate("/work")}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

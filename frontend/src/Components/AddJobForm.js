@@ -30,8 +30,19 @@ const AddJobForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    if ((name === "title" || name === "type") && !/^[A-Za-z\s]*$/.test(value)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Input",
+        text: "Only letters and spaces are allowed for Job Title and Job Type.",
+      });
+      return;
+    }
+  
     setJob({ ...job, [name]: value });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

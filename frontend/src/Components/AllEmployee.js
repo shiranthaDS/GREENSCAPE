@@ -70,6 +70,7 @@ const AllEmployee = () => {
     });
   };
 
+  //search filter
   const filteredEmployees = employees.filter((emp) =>
     Object.values(emp).some((val) =>
       val.toString().toLowerCase().includes(searchTerm.toLowerCase())
@@ -114,11 +115,12 @@ const AllEmployee = () => {
     // Employee Table
     autoTable(doc, {
       startY: 50, // Adjusts table position to start below the header
-      head: [["Name", "NIC", "Email", "Address", "Gender", "Phone", "Type", "Role", "Employee ID"]],
+      head: [["Name", "NIC", "Date of birth", "Email", "Address", "Gender", "Phone", "Type", "Role", "Employee ID"]],
       headStyles: { fillColor: [0, 128, 0], textColor: 255, fontSize: 12 }, // Green Header
       body: employees.map((emp) => [
         emp.name,
         emp.nic,
+        emp.dob ? new Date(emp.dob).toLocaleDateString() : "N/A", // Format DOB to exclude time
         emp.email,
         emp.address,
         emp.gender,
@@ -176,6 +178,7 @@ const AllEmployee = () => {
             <tr>
               <th>Name</th>
               <th>NIC</th>
+              <th>Date of Birth</th>
               <th>Email</th>
               <th>Address</th>
               <th>Gender</th>
@@ -191,6 +194,7 @@ const AllEmployee = () => {
               <tr key={emp._id}>
                 <td>{emp.name}</td>
                 <td>{emp.nic}</td>
+                <td>{new Date(emp.dob).toLocaleDateString()}</td> 
                 <td>{emp.email}</td>
                 <td>{emp.address}</td>
                 <td>{emp.gender}</td>

@@ -10,11 +10,13 @@ export default function WorkAssignForm() {
   const [employeeId, setID] = useState("");
   const [ename, setName] = useState("");
   const [role, setRole] = useState("");
+  const [nic, setNIC] = useState("");
+  const [status, setStatus] = useState("");
   const [workingDate, setWorkingDate] = useState("");
   const [otHours, setOTHours] = useState("");
   const [leaveHours, setLeaveHours] = useState("");
   const [estimateDate, setEstimateDate] = useState("");
-  const [employeeIdError, setEmployeeIdError] = useState(""); // Validation error state for Employee ID
+  const [employeeIdError, setEmployeeIdError] = useState("");
   const navigate = useNavigate();
 
   const fetchEmployeeDetails = async (id) => {
@@ -23,6 +25,8 @@ export default function WorkAssignForm() {
       const employee = response.data;
       setName(employee.name);
       setRole(employee.role);
+      setNIC(employee.nic);
+      setStatus(employee.status);
     } catch (err) {
       console.error("Error fetching employee details:", err);
       Swal.fire({
@@ -32,6 +36,8 @@ export default function WorkAssignForm() {
       });
       setName("");
       setRole("");
+      setNIC("");
+      setStatus("");
     }
   };
 
@@ -39,12 +45,11 @@ export default function WorkAssignForm() {
     const id = e.target.value;
     setID(id);
 
-    // Validate Employee ID
-    const employeeIdPattern = /^LE\d+$/; // Must start with "LE" followed by numeric digits
+    const employeeIdPattern = /^LE\d+$/;
     if (!employeeIdPattern.test(id)) {
       setEmployeeIdError("Employee ID must start with 'LE' followed by numeric digits.");
     } else {
-      setEmployeeIdError(""); // Clear error if valid
+      setEmployeeIdError("");
     }
 
     if (debounceTimeout) {
@@ -57,6 +62,8 @@ export default function WorkAssignForm() {
       } else {
         setName("");
         setRole("");
+        setNIC("");
+        setStatus("");
       }
     }, 2000);
   };
@@ -67,44 +74,47 @@ export default function WorkAssignForm() {
     }
   };
 
+  const validateNumberRange = (value, min, max) => {
+    if (!/^\d+$/.test(value)) return false; // Ensure only numbers
+    const num = parseInt(value, 10);
+    return num >= min && num <= max;
+  };
+
   const handleWorkingDaysChange = (e) => {
     const value = e.target.value;
-    const numberPattern = /^[0-9]*$/; // Only numbers
-    if (numberPattern.test(value)) {
-      setWorkingDate(value); // Update state only if valid
+    if (validateNumberRange(value, 0, 31) || value === "") {
+      setWorkingDate(value);
     } else {
       Swal.fire({
         icon: "error",
         title: "Validation Error",
-        text: "Working days can only contain numbers.",
+        text: "Working days must be between 0 and 31.",
       });
     }
   };
 
   const handleOTHoursChange = (e) => {
     const value = e.target.value;
-    const decimalPattern = /^[0-9]*\.?[0-9]*$/; // Numbers and optional decimal point
-    if (decimalPattern.test(value)) {
-      setOTHours(value); // Update state only if valid
+    if (validateNumberRange(value, 0, 20) || value === "") {
+      setOTHours(value);
     } else {
       Swal.fire({
         icon: "error",
         title: "Validation Error",
-        text: "OT Hours can only contain numbers and a decimal point.",
+        text: "OT Hours must be between 0 and 20.",
       });
     }
   };
 
   const handleLeaveHoursChange = (e) => {
     const value = e.target.value;
-    const decimalPattern = /^[0-9]*\.?[0-9]*$/; // Numbers and optional decimal point
-    if (decimalPattern.test(value)) {
-      setLeaveHours(value); // Update state only if valid
+    if (validateNumberRange(value, 0, 20) || value === "") {
+      setLeaveHours(value);
     } else {
       Swal.fire({
         icon: "error",
         title: "Validation Error",
-        text: "Leave Hours can only contain numbers and a decimal point.",
+        text: "Leave Hours must be between 0 and 20.",
       });
     }
   };
@@ -112,7 +122,6 @@ export default function WorkAssignForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check for validation errors before submitting
     if (employeeIdError) {
       Swal.fire({
         icon: "error",
@@ -126,6 +135,8 @@ export default function WorkAssignForm() {
       employeeId,
       ename,
       role,
+      nic,
+      status,
       workingDate,
       otHours,
       leaveHours,
@@ -153,21 +164,17 @@ export default function WorkAssignForm() {
 
   return (
     <div className="work-assign-container mt-4">
-      {/* Header */}
       <div className="text-center mb-4">
         <h2 className="work-assign-header">Working Hours</h2>
       </div>
 
-      {/* Form */}
       <form className="work-assign-form row" onSubmit={handleSubmit}>
-        {/* Left Column */}
         <div className="col-md-6">
           <div className="form-group">
             <label>Employee ID</label>
             <input
               type="text"
               className={`form-control ${employeeIdError ? "is-invalid" : ""}`}
-              name="employeeId"
               value={employeeId}
               onChange={handleEmployeeIdChange}
               onKeyPress={handleEmployeeIdKeyPress}
@@ -177,84 +184,57 @@ export default function WorkAssignForm() {
           </div>
           <div className="form-group">
             <label>Employee Name</label>
-            <input
-              type="text"
-              className="form-control"
-              name="ename"
-              value={ename}
-              readOnly
-            />
+            <input type="text" className="form-control" value={ename} readOnly />
           </div>
           <div className="form-group">
             <label>Employee Role</label>
-            <input
-              type="text"
-              className="form-control"
-              name="role"
-              value={role}
-              readOnly
-            />
+            <input type="text" className="form-control" value={role} readOnly />
           </div>
           <div className="form-group">
-            <label>Number of days worked</label>
-            <input
-              type="text"
-              className="form-control"
-              name="workingDate"
-              value={workingDate}
-              onChange={handleWorkingDaysChange}
-              required
-            />
+            <label>NIC</label>
+            <input type="text" className="form-control" value={nic} readOnly />
+          </div>
+          <div className="form-group">
+            <label>Employee Type</label>
+            <input type="text" className="form-control" value={status} readOnly />
+          </div>
+          <div className="form-group">
+            <label>Number of Days Worked</label>
+            <input type="text" className="form-control" value={workingDate} onChange={handleWorkingDaysChange} required />
           </div>
         </div>
 
-        {/* Right Column */}
         <div className="col-md-6">
           <div className="form-group">
-            <label>OT Hours</label>
-            <input
-              type="text"
-              className="form-control"
-              name="otHours"
-              value={otHours}
-              onChange={handleOTHoursChange}
-              required
-            />
+            <label>Weekdays OT Hours</label>
+            <input type="text" className="form-control" value={otHours} onChange={handleOTHoursChange} required />
           </div>
           <div className="form-group">
-            <label>Leave Hours</label>
-            <input
-              type="text"
-              className="form-control"
-              name="leaveHours"
-              value={leaveHours}
-              onChange={handleLeaveHoursChange}
-              required
-            />
+            <label>Weekend Hours</label>
+            <input type="text" className="form-control" value={leaveHours} onChange={handleLeaveHoursChange} required />
           </div>
           <div className="form-group">
             <label>Estimate Date</label>
             <input
-              type="date"
-              className="form-control"
-              name="estimateDate"
-              value={estimateDate}
-              onChange={(e) => setEstimateDate(e.target.value)}
-              required
-            />
+               type="date"
+               className="form-control"
+               value={estimateDate}
+               min={new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+               .toISOString()
+               .split("T")[0]}
+               max={new Date().toISOString().split("T")[0]}
+               onChange={(e) => setEstimateDate(e.target.value)}
+               required
+              />
+
           </div>
         </div>
 
-        {/* Submit and Cancel Buttons */}
         <div className="col-12 text-center">
           <button type="submit" className="btn btn-primary mt-3">
             Add Working Hours
           </button>
-          <button
-            type="button"
-            className="btn btn-secondary mt-3 ml-3"
-            onClick={() => navigate("/work")}
-          >
+          <button type="button" className="btn btn-secondary mt-3 ml-3" onClick={() => navigate("/work")}>
             Cancel
           </button>
         </div>

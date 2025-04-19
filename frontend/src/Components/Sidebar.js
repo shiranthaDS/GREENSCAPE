@@ -36,7 +36,13 @@ function Sidebar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/registration" className="nav-link text-white">
+          <NavLink to="/admin" className="nav-link text-white">
+            <FontAwesomeIcon icon={faSignOutAlt} /> Job Applications
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/home" className="nav-link text-white">
             <FontAwesomeIcon icon={faSignOutAlt} /> Signout
           </NavLink>
         </li>

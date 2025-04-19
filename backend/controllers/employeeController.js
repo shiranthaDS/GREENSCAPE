@@ -3,10 +3,10 @@ const { Employee, generateEmployeeID } = require("../models/Employee");
 // Add a new employee
 exports.addEmployee = async (req, res) => {
   try {
-    const { name, nic, email, address, gender, phone, status, role } = req.body;
+    const { name, nic, dob, email, address, gender, phone, status, role } = req.body;
     const emid = await generateEmployeeID(); // Generate unique employee ID
 
-    const newEmployee = new Employee({ emid, name, nic, email, address, gender, phone, status, role });
+    const newEmployee = new Employee({ emid, name, nic, dob, email, address, gender, phone, status, role });
 
     await newEmployee.save();
     res.status(201).json({ message: "Employee added successfully", employee: newEmployee });
