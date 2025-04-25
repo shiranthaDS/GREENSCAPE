@@ -94,11 +94,19 @@ const AppointmentForm = () => {
           <h3>Make an Appointment</h3>
          <h2>Request for Project Consultation</h2>
           <form onSubmit={handleSubmit}>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" required />
+            <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" pattern="^[a-zA-Z\s]+$"
+          title="Name should only contain letters." required />
+
             <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
-            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" required />
-            <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Address" required />
-            <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" required />
+
+            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number (e.g., +94712345678)"  pattern="^\+94[0-9]{9}$"
+               title="Phone number must be in the format +94XXXXXXXXX (e.g., +94712345678)." required />
+
+            <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Address"  required />
+
+            <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" pattern="^[a-zA-Z\s]+$"
+               title="City should only contain letters." required />
+            
             <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
               <option value="">Select a Service</option>
               {serviceOptions.map((service, index) => (

@@ -407,7 +407,9 @@ const AdminAppointments = () => {
             value={formData.siteVisitDate ? moment(formData.siteVisitDate) : null}
             onChange={(date, dateString) =>
               setFormData({ ...formData, siteVisitDate: dateString })
+              
             }
+            disabledDate={(current) => current && current < moment().startOf("day")}
           />
           <Select
             style={{ width: "100%" }}
@@ -432,8 +434,9 @@ const AdminAppointments = () => {
             <Option value="Ongoing">Ongoing</Option>
             <Option value="Hold">Hold</Option>
           </Select>
+          
           <Input
-            placeholder="Project ID"
+            placeholder="Project ID(e.g.PRJ123)"
             value={formData.projectId}
             onChange={(e) =>
               setFormData({ ...formData, projectId: e.target.value })

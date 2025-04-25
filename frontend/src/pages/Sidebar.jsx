@@ -6,6 +6,7 @@ import {
   CalendarOutlined,
   ProjectOutlined,
   AppstoreOutlined,
+  LogoutOutlined ,
 } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 
@@ -45,7 +46,7 @@ const Sidebar = () => {
         style={{ background: "#228C22", borderRight: "none" }}
       >
         <Menu.Item
-          key="/admin/dashboard"
+          key="/admin/analysis"
           icon={<DashboardOutlined style={{ color: "#ffffff" }} />}
           style={{ margin: "8px 0", padding: "0 16px", color: "#ffffff" }}
         >
@@ -54,7 +55,7 @@ const Sidebar = () => {
           </Link>
         </Menu.Item>
         <Menu.Item
-          key="/admin/scheduled-appointments"
+          key="/admin/calendar"
           icon={<ScheduleOutlined style={{ color: "#ffffff" }} />}
           style={{ margin: "8px 0", padding: "0 16px", color: "#ffffff" }}
         >
@@ -63,7 +64,7 @@ const Sidebar = () => {
           </Link>
         </Menu.Item>
         <Menu.Item
-          key="/admin/appointments"
+          key="/admin/table"
           icon={<CalendarOutlined style={{ color: "#ffffff" }} />}
           style={{ margin: "8px 0", padding: "0 16px", color: "#ffffff" }}
         >
@@ -72,7 +73,7 @@ const Sidebar = () => {
           </Link>
         </Menu.Item>
         <Menu.Item
-          key="/admin/ongoing-projects"
+          key="/admin/project"
           icon={<ProjectOutlined style={{ color: "#ffffff" }} />}
           style={{ margin: "8px 0", padding: "0 16px", color: "#ffffff" }}
         >
@@ -87,6 +88,15 @@ const Sidebar = () => {
         >
           <Link to="/admin/manage-services" style={{ color: "#ffffff" }}>
             Manage Services
+          </Link>
+        </Menu.Item>
+        <Menu.Item
+          key="/admin/sign-out"
+          icon={<LogoutOutlined  style={{ color: "#ffffff" }} />}
+          style={{ margin: "8px 0", padding: "0 16px", color: "#ffffff" }}
+        >
+          <Link to="/" style={{ color: "#ffffff" }}>
+            Sign Out
           </Link>
         </Menu.Item>
       </Menu>

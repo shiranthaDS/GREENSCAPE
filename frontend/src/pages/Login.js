@@ -40,6 +40,7 @@ const Login = () => {
 
   return (
     <div className={styles.wrapper}>
+      
       <div className={styles.container}>
         <h2 className={styles.title}>Login</h2>
         <form onSubmit={handleSubmit}>
