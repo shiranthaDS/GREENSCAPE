@@ -1,42 +1,28 @@
-const express = require('express');
+//pw-fnQsm550Po5uSTwb
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
+//const router = require("./Routes/inventoryRoute.js");
+const usageRouter = require("./Routes/usageRoute.js");
+const inventoryRouter = require("./Routes/inventoryRoute.js");
+const maintenanceRouter = require("./Routes/maintenanceRoute.js");
+
 const app = express();
-const cors = require('cors');
-const controller = require('./controllers/feedbackController');
 
-app.use(cors()); //cors origin unblocking(cross origine resoures sharing)
+//Middleware
+app.use(cors());
+app.use(express.json({ limit: '50mb' })); // Increase payload limit for PDF data
+//app.use("/inventories", router);
+app.use("/inventories", inventoryRouter);
+//app.use("/usageRouters", usageRouter);
+app.use("/usage", usageRouter);
+app.use("/maintenance", maintenanceRouter);
 
-app.use(
-    express.urlencoded({
-        extended:true,
-    })
-);
-
-app.use(express.json());
-
-
-app.get('/feedbacks', (req,res) => {
-    //get all Emps from controller
-    controller.getFeedback((req,res,next) => {
-        res.send(); // send to response and return
-    });
-});
-
-app.post('/createfeedback', (req,res) => {
-    controller.addFeedback(req.body,(callback) => {
-        res.send();
-    });
-});
-
-app.post('/updatefeedback', (req,res) => {
-    controller.updateFeedback(req.body,(callback) => {
-        res.send(callback);//pass the callback for know to data passed
-    });
-});
-
-app.post('/deletefeedback', (req,res) => {
-    controller.deleteFeedback(req.body,(callback) => {
-        res.send(callback);//pass the callback for know to data passed
-    });
-});
-
-module.exports = app;
+mongoose.connect("mongodb+srv://3halon:fnQsm550Po5uSTwb@cluster0.ng1rq.mongodb.net/")
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(5000, () => console.log("Listening on port 5000"));
+  })
+  .catch((err) => console.log(err));
