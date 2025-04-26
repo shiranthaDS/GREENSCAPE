@@ -217,7 +217,9 @@ const AppointmentForm = () => {
         .promotional-box .cta-button:hover {
           background-color: #218838;
         }
-
+        .promotional-box h1 {
+          color:rgb(254, 255, 254);
+        }
         .form-container {
           padding: 40px;
           background-color: white;

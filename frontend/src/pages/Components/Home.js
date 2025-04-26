@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { Menu, X, ChevronLeft, ChevronRight, Leaf, Droplet, Shovel, Scissors, MapPin, Mail, Phone, Facebook, Instagram, Twitter } from "lucide-react";
 import "./Home.css";
 import { LogIn, User ,ChevronDown} from "lucide-react";
-import AppointmentForm from "./AppointmentForm";
-import ServiceList from "./ServiceList";
+
 
 
 
@@ -123,7 +122,8 @@ const Home = () => {
       <a href="/home" className="nav-link">Home</a>
       <a href="/services" className="nav-link">Services</a>
       <a href="/about" className="nav-link">About Us</a>
-      <a href="/career" className="nav-link">Career</a>
+      <a href="/contact" className="nav-link">Contact Us</a>
+      <a href="/career" className="mobile-nav-link">Job Opportunity</a>
       
       {/* Feedback Dropdown */}
       <div className="dropdown">
@@ -158,6 +158,7 @@ const Home = () => {
       <a href="/services" className="mobile-nav-link">Services</a>
       <a href="/about" className="mobile-nav-link">About Us</a>
       <a href="/contact" className="mobile-nav-link">Contact Us</a>
+      <a href="/career" className="mobile-nav-link">Job Opportunity</a>
       
       {/* Mobile Feedback Links */}
       <div className="mobile-feedback-section">
@@ -229,8 +230,7 @@ const Home = () => {
           ))}
         </div>
       </section>
-      <ServiceList/>
-      <AppointmentForm />
+    
       {/* Contact Section */}
       <section id="contact" className="contact-section">
         <h2>Get in Touch</h2>
@@ -312,8 +312,7 @@ const Home = () => {
         <li><a href="/about">About Us</a></li>
         <li><a href="/team">Our Team</a></li>
         <li><a href="/careers">Careers</a></li>
-        <li><a href="/admin">Admin</a></li>
-        <li><a href="/dashboard">HR Admin</a></li>
+        <li><a href="/dashboard">Admin</a></li>
       </ul>
     </div>
 

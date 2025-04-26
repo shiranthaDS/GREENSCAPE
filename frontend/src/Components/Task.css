@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f6f9f4;
+  }
+  
+  .row {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    color: #333333;
+  }
+  
+  .form-control-select {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 12px; /* Increase padding for larger size */
+    font-size: 16px; /* Increase font size */
+    font-weight: bold; /* Make the text bold to stand out */
+    color: #333; /* Darker text color for better readability */
+    height: auto; /* Allow the height to adjust based on padding */
+    background-color: #ffffff; /* Optional: Set background color */
+  }
+  
+  .form-control-select option {
+    font-size: 16px; /* Ensure options have the same font size */
+    font-weight: bold; /* Make option text bold */
+    color: #333; /* Darker text color for better readability */
+  }
+  
+  .form-group input[readonly] {
+    background-color: #e9ecef;
+  }
+  
+  .btn-primary {
+    background-color: #28a745;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #218838;
+  }
+  
+  .btn-secondary {
+    background-color: #80e788;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    color: #333; 
+    
+  }
+  
+  .btn-secondary:hover {
+    background-color: #c7ef82;
+    
+  }
+  
+  .form-group div {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .form-group div label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+   

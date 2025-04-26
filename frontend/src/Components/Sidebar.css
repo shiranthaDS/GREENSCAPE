@@ -1,0 +1,153 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background: linear-gradient(to bottom, #2E7D32, #0ac451); /* Gradient from gray to green */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h3 {
+  color: #070707; /* Teal color */
+}
+
+.sidebar .nav-link {
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.sidebar .nav-link:hover {
+  background: #edf057; /* Teal color */
+  color: #ffffff;
+}
+
+.sidebar .nav-link.active {
+  background: #2E7D32; /* Teal color */
+  color: #ffffff;
+}
+
+.table-container {
+  max-width: 95%;
+  margin: auto;
+}
+
+.table {
+  width: 100%;
+  font-size: 14px;
+  border-collapse: collapse;
+  color: gray; 
+  border: none;
+}
+
+.table thead {
+  background-color: #28a745; /* Set header background color to green */
+  color: white; /* Set header text color to white for better contrast */
+}
+
+.table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table th, .table td {
+  padding: 8px;
+  text-align: left;
+  border: none;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #f2f2f2; /* Light gray for alternate rows */
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #ffffff; /* White */
+}
+
+.table th {
+  color: #ffffff; /* Dark green */
+}
+
+.table td {
+  color: #155724; /* Dark green */
+}
+
+.btn {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.btn-update {
+  background-color: #d4edda; /* Light green */
+  color: #155724; /* Dark green */
+  border: 1px solid #155724; /* Dark green border */
+}
+
+.btn-delete {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border: 1px solid #721c24; /* Dark red border */
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+
+
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1 1 45%; /* Adjust the width of each form group */
+  margin: 10px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 500px;
+  max-width: 100%;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.modal-body {
+  margin-top: 10px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
