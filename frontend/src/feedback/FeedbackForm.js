@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import StarRating from './StarRating';
+import Header from "../pages/Header";
 
 import './FeedbackForm.css';
 
@@ -92,7 +93,13 @@ function FeedbackForm() {
   };
 
   return (
+    
     <div className="feedback-form-container">
+      
+      <Header />  
+      <br></br>
+      <br></br>
+      <br></br>
       <h2>Feedback Form</h2>
       <form onSubmit={handleSubmit} className="feedback-form">
         <div className="form-group">
@@ -155,6 +162,7 @@ function FeedbackForm() {
         </div>
       </form>
     </div>
+   
   );
 }
 

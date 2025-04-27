@@ -2,6 +2,7 @@ import React, { useState, useEffect, Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./CareerPage.css";
+import Header from "../pages/Header";
 import { FaLocationArrow, FaChevronDown, FaChevronUp } from "react-icons/fa"; 
 const bannerImage = "/image/1.jpg"; // Directly reference the public folder
 
@@ -34,7 +35,10 @@ const CareerPage = () => {
 
   return (
     <div className="career-page">
-     
+      <Header />
+      <br/>
+      <br/>
+      <br/>
       {/* Banner Section */}
       <div className="banner">
   <img src={bannerImage} alt="Career Banner" />

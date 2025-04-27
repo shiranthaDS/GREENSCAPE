@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import styles from "./Signup.module.css";
+import Header from "../pages/Header"; 
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -40,7 +41,7 @@ const Login = () => {
 
   return (
     <div className={styles.wrapper}>
-      
+      <Header />
       <div className={styles.container}>
         <h2 className={styles.title}>Login</h2>
         <form onSubmit={handleSubmit}>

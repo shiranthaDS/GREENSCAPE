@@ -17,6 +17,7 @@ import AdminAppointmentsCalendar from "./pages/AdminAppointmentsCalendar";
 import ServicesDemandAnalysis from "./pages/ServicesDemandAnalysis";
 import AdminLogin from "./pages/AdminLogin";  
 import AdminDashboard from "./pages/Dashboard";
+import Header from "./pages/Header"; // Import Header component
 
 // HR/Employee/Job Pages
 import Sidebar from './Components/Sidebar';
@@ -33,6 +34,7 @@ import AddJobForm from "./Components/AddJobForm";
 import CareerPage from "./Components/CareerPage";
 import ApplicationForm from "./Components/ApplicationForm";
 import AdminPage from "./Components/Adminpage";
+
 
 // Feedback Pages
 import FeedbackForm from "./feedback/FeedbackForm";
@@ -88,6 +90,8 @@ function App() {
         <Route path="/admin-feedback" element={<AdminFeedbackView />} />
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/header" element={<Header />} /> 
+        
         
         <Route path="/inventory-nav" element={<InventoryNav />} />
         <Route path="/InventoryDetails" element={<InventoryDetails />} />

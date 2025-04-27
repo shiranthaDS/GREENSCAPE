@@ -69,15 +69,15 @@ const Home = () => {
       id: 2,
       title: "Luxury Patio Design",
       description: "Creating outdoor living spaces that inspire",
-      beforeImage: "/imges/bg1.jpg",
-      afterImage: "/imges/bg1.jpg",
+      beforeImage: "/imges/bs2.jpg",
+      afterImage: "/imges/bs2.jpg",
     },
     {
       id: 3,
       title: "Water Feature Installation",
       description: "Adding tranquility and elegance to any landscape",
-      beforeImage: "/imges/bg1.jpg",
-      afterImage: "/imges/bg1.jpg",
+      beforeImage: "/imges/bs1.jpg",
+      afterImage: "/imges/bs2.jpg",
     },
   ];
 

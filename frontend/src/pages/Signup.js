@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import styles from "./Signup.module.css"; 
+import Header from "../pages/Header"; // Import Header component
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -38,6 +39,7 @@ const Signup = () => {
 
   return (
     <div className={styles.wrapper}>
+      <Header /> {/* Include Header component */}
       <div className={styles.container}>
         <h2 className={styles.title}>Signup</h2>
         <form onSubmit={handleSubmit}>

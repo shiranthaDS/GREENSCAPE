@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './FeedbackList.css';
+import Header from "../pages/Header"; 
 
 function FeedbackList() {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -38,7 +39,14 @@ function FeedbackList() {
   }
 
   return (
+    
+     
+   
     <div className="feedback-list-container">
+    <Header />
+      <br></br>
+      <br></br>
+      <br></br>
       <h2>Feedback List</h2>
       <ul>
         {feedbacks.length > 0 ? (
@@ -55,6 +63,7 @@ function FeedbackList() {
         )}
       </ul>
     </div>
+   
   );
 }
 
