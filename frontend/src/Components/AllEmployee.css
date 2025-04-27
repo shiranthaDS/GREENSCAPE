@@ -1,36 +1,62 @@
 .table-container {
   width: calc(100% - 100px);
   margin-left: 100px;
-  overflow-x: auto; /* Allows horizontal scrolling only */
-  overflow-y: hidden; /* Removes vertical scrolling */
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 20px;
-  max-height: none; /* Ensures no height restriction */
+  max-height: none;
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse; /* Remove gaps between cells */
-  background-color: #ffffff; /* White background */
-  color: gray; /* Set text color to gray */
+  border-collapse: collapse;
+  background-color: #ffffff;
+  color: gray;
   border: none;
+  table-layout: fixed; /* Make columns have fixed width */
 }
 
 .table thead {
-  background-color: #28a745; /* Set header background color to green */
-  color: white; /* Set header text color to white for better contrast */
+  background-color: #28a745;
+  color: white;
+}
+
+.table thead th {
+  text-align: center;
+  vertical-align: middle;
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+  padding: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  text-align: center;
+  padding: 10px;
+  word-break: break-word; /* Allows breaking long words like long emails */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .table tbody tr:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.page-header{
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.page-header {
   color: #666;
 }
 
 .icon {
   cursor: pointer;
-  margin-right: 0.8rem;
+  margin-right: 1rem;
 }
 
 .icon-edit {
@@ -39,6 +65,7 @@
 
 .icon-delete {
   color: lightcoral;
+  margin-right: 0;
 }
 
 .pagination {
@@ -69,41 +96,9 @@
 .button-container {
   display: flex;
   justify-content: center;
+  gap: 25px;
   margin-top: 15px;
-}
-
-.icon {
-  cursor: pointer;
-  
-  margin-right: 1rem; /* Add margin to the right of each icon */
-}
-
-.icon-edit {
-  color: green;
-}
-
-.icon-delete {
-  color: lightcoral;
-  margin-right: 0; /* Remove the margin from the last icon */
-}  
-
-.main-content {
-  margin-left: 150px; /* Adjust this value to match the width of your sidebar plus some padding */
-  padding: 20px;
-}
-
-
-.table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.table td {
-  text-align: center;
-}
-.button-container {
-  display: flex;
-  gap: 25px; /* Add spacing between buttons */
-  margin-bottom: 10px; /* Add spacing below the buttons */
+  margin-bottom: 10px;
 }
 
 .btn-register,
@@ -116,31 +111,26 @@
 }
 
 .btn-register {
-  background-color: #28a745; /* Green */
+  background-color: #28a745;
   color: white;
 }
 
 .btn-register:hover {
-  background-color: #218838; /* Darker green */
+  background-color: #218838;
 }
 
 .btn-pdf {
-  background-color: #007bff; /* Blue */
+  background-color: #007bff;
   color: white;
 }
 
 .btn-pdf:hover {
-  background-color: #0056b3; /* Darker blue */
+  background-color: #0056b3;
 }
-/* Table Column Headers */
-.table thead th {
-  text-align: center; /* Center-align table column headers */
-  vertical-align: middle; /* Vertically align content in the middle */
-  background-color: #28a745; /* Optional: Green background for headers */
-  color: white; /* Optional: White text for headers */
-  
-  font-weight: bold; /* Make headers bold */
-  border-bottom: 2px solid #ddd; /* Add a subtle border below headers */
+
+.main-content {
+  margin-left: 150px;
+  padding: 20px;
 }
 
 .search-container {

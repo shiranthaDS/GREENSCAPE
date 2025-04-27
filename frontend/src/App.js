@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
- 
+
 // Garden Services Pages
 import AppointmentForm from "./pages/AppointmentForm";
 import AdminAppointments from "./pages/AdminAppointments";
@@ -15,7 +15,8 @@ import AdminServiceForm from "./pages/AdminServiceForm";
 import AdminLayout from "./pages/AdminLayout";
 import AdminAppointmentsCalendar from "./pages/AdminAppointmentsCalendar";
 import ServicesDemandAnalysis from "./pages/ServicesDemandAnalysis";
-
+import AdminLogin from "./pages/AdminLogin";  
+import AdminDashboard from "./pages/Dashboard";
 
 // HR/Employee/Job Pages
 import Sidebar from './Components/Sidebar';
@@ -33,10 +34,23 @@ import CareerPage from "./Components/CareerPage";
 import ApplicationForm from "./Components/ApplicationForm";
 import AdminPage from "./Components/Adminpage";
 
-//feedback pages
-
-import  FeedbackForm from "./feedback/FeedbackForm";
+// Feedback Pages
+import FeedbackForm from "./feedback/FeedbackForm";
 import FeedbackList from "./feedback/FeedbackList";
+import FeedbackTable from "./feedback/FeedbackTable";
+import AdminFeedbackView from "./feedback/AdminFeedbackView";
+import Chatbot from "./feedback/Chatbot"; // ✅ Corrected import
+
+//inventory
+import Inventory from "./Inventory/AddInventory";
+import InventoryNav from "./Inventory/InventoryNav";  
+import InventoryDetails from "./Inventory/InventoryDetails";
+import LowStock from "./Inventory/LowStockAlerts";  
+import Maintenance from "./Inventory/MaintenanceLogs";
+import UpdateInventory from "./Inventory/UpdateInventory";
+import Usagereports from "./Inventory/UsageReports";
+
+
 
 
 
@@ -58,10 +72,8 @@ function App() {
   return (
     <Router>
       <Routes>
-
         {/* 🌿 Garden Services Public Pages */}
         <Route path="/" element={<Home />} />
-        
         <Route path="/services" element={<ServiceList />} />
         <Route path="/cost-estimator" element={<CostEstimator />} />
         <Route path="/signup" element={<Signup />} />
@@ -72,7 +84,24 @@ function App() {
         <Route path="/apply/:jobId" element={<ApplicationForm />} />
         <Route path="/fd" element={<FeedbackForm />} />
         <Route path="/feedback-list" element={<FeedbackList />} />
+        <Route path="/feedback-table" element={<FeedbackTable />} />
+        <Route path="/admin-feedback" element={<AdminFeedbackView />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         
+        <Route path="/inventory-nav" element={<InventoryNav />} />
+        <Route path="/InventoryDetails" element={<InventoryDetails />} />
+        <Route path="/LowStockAlerts" element={<LowStock />} />
+        <Route path="/MaintenanceLogs" element={<Maintenance />} /> 
+        
+        
+        <Route path="/UsageReports" element={<Usagereports />} />
+        <Route path="/AddInventory" element={<Inventory />} />
+        // Make sure you have this route
+        <Route path="/AddInventory/:itemId" element={<UpdateInventory />} />
+       
+
+
         {/* 🛠 Garden Admin */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="table" element={<AdminAppointments />} />
@@ -81,6 +110,8 @@ function App() {
           <Route path="calendar" element={<AdminAppointmentsCalendar />} />
           <Route path="analysis" element={<ServicesDemandAnalysis />} />
         </Route>
+
+       
 
         {/* 👥 HR/Employee/Job Dashboard Public Routes with Sidebar */}
         <Route path="/dashboard" element={<WithSidebar><Dashboard /></WithSidebar>} />
@@ -94,8 +125,10 @@ function App() {
         <Route path="/update-work/:id" element={<WithSidebar><UpdateWork /></WithSidebar>} />
         <Route path="/add-job" element={<WithSidebar><AddJobForm /></WithSidebar>} />
         <Route path="/adminpage" element={<WithSidebar><AdminPage /></WithSidebar>} />
-
       </Routes>
+
+      {/* ✅ Chatbot rendered globally */}
+      <Chatbot />
     </Router>
   );
 }

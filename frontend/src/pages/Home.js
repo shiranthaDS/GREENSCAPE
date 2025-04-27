@@ -127,12 +127,12 @@ const Home = () => {
       
       {/* Feedback Dropdown */}
       <div className="dropdown">
-        <button className="nav-link dropdown-toggle">
+        <button className="nav-link dropdown-toggle1">
           Feedback <ChevronDown size={16} />
         </button>
         <div className="dropdown-content">
-          <a href="/feedback/add" className="dropdown-link">Add Feedback</a>
-          <a href="/feedback/view" className="dropdown-link">View Feedback</a>
+          <a href="/fd" className="dropdown-link">Add Feedback</a>
+          <a href="/feedback-list" className="dropdown-link">View Feedback</a>
         </div>
       </div>
       
@@ -312,8 +312,8 @@ const Home = () => {
         <li><a href="/about">About Us</a></li>
         <li><a href="/team">Our Team</a></li>
         <li><a href="/careers">Careers</a></li>
-        <li><a href="/admin">Admin</a></li>
-        <li><a href="/dashboard">HR Admin</a></li>
+        
+        
       </ul>
     </div>
 
@@ -344,9 +344,10 @@ const Home = () => {
       &copy; {new Date().getFullYear()} GreenScape. All rights reserved.
     </div>
     <div className="legal-links">
+    <a href="/admin-login">Admin</a>
       <a href="/privacy-policy">Privacy Policy</a>
       <a href="/terms">Terms of Service</a>
-      <a href="/sitemap">Sitemap</a>
+      
     </div>
   </div>
 </footer>

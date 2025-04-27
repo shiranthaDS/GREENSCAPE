@@ -42,7 +42,7 @@ function Sidebar() {
         </li>
 
         <li>
-          <NavLink to="/" className="nav-link text-white">
+          <NavLink to="/admin-dashboard" className="nav-link text-white">
             <FontAwesomeIcon icon={faSignOutAlt} /> Signout
           </NavLink>
         </li>

@@ -95,7 +95,7 @@ const Sidebar = () => {
           icon={<LogoutOutlined  style={{ color: "#ffffff" }} />}
           style={{ margin: "8px 0", padding: "0 16px", color: "#ffffff" }}
         >
-          <Link to="/" style={{ color: "#ffffff" }}>
+          <Link to="/admin-dashboard" style={{ color: "#ffffff" }}>
             Sign Out
           </Link>
         </Menu.Item>

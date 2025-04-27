@@ -3,9 +3,9 @@
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  max-width: 1400px; /* Increased width */
+  max-width: 1400px;
   margin: 30px auto;
-  margin-left: 100px; /* Move it further away from the sidebar */
+  margin-left: 100px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -56,12 +56,14 @@ h1 {
   background-color: #1d4ed8;
 }
 
+/* Table */
 .applications-table {
   width: 100%;
   border-collapse: collapse;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  table-layout: fixed; /* Force fixed layout to prevent overflow */
 }
 
 .applications-table th,
@@ -69,6 +71,9 @@ h1 {
   padding: 14px 16px;
   text-align: center;
   border-bottom: 1px solid #e2e8f0;
+  word-break: break-word; /* Allow words to break inside cells */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .applications-table th {
@@ -76,6 +81,7 @@ h1 {
   color: #1e293b;
   font-weight: 600;
   font-size: 14px;
+  white-space: nowrap; /* Optional: Keeps headers in one line */
 }
 
 .applications-table td {
@@ -88,6 +94,7 @@ h1 {
   transition: background-color 0.2s ease;
 }
 
+/* Action buttons */
 .action-button {
   padding: 6px 12px;
   margin: 2px;
@@ -117,6 +124,7 @@ h1 {
   opacity: 0.85;
 }
 
+/* Links */
 a {
   text-decoration: none;
   color: #2563eb;
@@ -126,6 +134,8 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Pagination controls */
 .pagination-controls {
   display: flex;
   justify-content: center;
