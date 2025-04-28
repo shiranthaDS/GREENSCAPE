@@ -69,14 +69,14 @@ const Home = () => {
       id: 2,
       title: "Luxury Patio Design",
       description: "Creating outdoor living spaces that inspire",
-      beforeImage: "/imges/bs2.jpg",
-      afterImage: "/imges/bs2.jpg",
+      beforeImage: "/imges/bs1.jpg",
+      afterImage: "/imges/bs1.jpg",
     },
     {
       id: 3,
       title: "Water Feature Installation",
       description: "Adding tranquility and elegance to any landscape",
-      beforeImage: "/imges/bs1.jpg",
+      beforeImage: "/imges/bs2.jpg",
       afterImage: "/imges/bs2.jpg",
     },
   ];
@@ -120,7 +120,7 @@ const Home = () => {
     </div>
 
     <div className="desktop-nav">
-      <a href="/home" className="nav-link">Home</a>
+      <a href="/" className="nav-link">Home</a>
       <a href="/services" className="nav-link">Services</a>
       <a href="/about" className="nav-link">About Us</a>
       <a href="/career" className="nav-link">Career</a>

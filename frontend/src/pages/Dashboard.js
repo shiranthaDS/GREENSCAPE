@@ -15,7 +15,7 @@ const Dashboard = () => {
     { title: 'HR', icon: '👥', path: '/dashboard' },
     { title: 'Inventory', icon: '📦', path: '/InventoryDetails' },
     { title: 'Feedback', icon: '💬', path: '/admin-feedback' },
-    { title: 'Finance', icon: '💰', path: '/finance' },
+    { title: 'Finance', icon: '💰', path: '/Dashboardf' },
   ];
 
   return (

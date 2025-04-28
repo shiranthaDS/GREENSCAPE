@@ -4,8 +4,10 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to right, #70cf6e96, #277e27);
-}
+  background-image: url('https://media.istockphoto.com/id/1372142727/photo/mowed-green-backyard-grass-under-trees-closeup-view.jpg?s=612x612&w=0&k=20&c=qQ3Q_Z6FAQ2-75J-m3RGgIcl7tch53RM9mFdb4J4YaU='); ;
+  background-size: cover;      /* make image cover the whole wrapper */
+  background-position: center; /* center the image */
+  background-repeat: no-repeat; /* prevent repeating */}
 
 /* Glassmorphism Form */
 .container {

@@ -52,8 +52,15 @@ import Maintenance from "./Inventory/MaintenanceLogs";
 import UpdateInventory from "./Inventory/UpdateInventory";
 import Usagereports from "./Inventory/UsageReports";
 
+//finance 
 
-
+import AddMinorTransaction from "./finance/AddMinorTransaction";
+import MinorTransactionList from "./finance/MinorTransactionList";
+import FinancialTransactions from "./finance/FinancialTransactions";
+import FinanceInvoice from "./finance/FinanceInvoice";
+import FinanceAnalysis from "./finance/FinanceAnalysis";
+import Dashboardf from "./finance/Dashboardf";
+import FinanceLayout from "./finance/FinanceLayout"; // Import the new FinanceLayout
 
 
 // CSS
@@ -103,6 +110,16 @@ function App() {
         <Route path="/AddInventory" element={<Inventory />} />
         // Make sure you have this route
         <Route path="/AddInventory/:itemId" element={<UpdateInventory />} />
+        
+
+        // In your App.js, update these finance routes:
+<Route path="/dashboardf" element={<FinanceLayout><Dashboardf /></FinanceLayout>} />
+<Route path="/AddMinorTransaction" element={<FinanceLayout><AddMinorTransaction /></FinanceLayout>} />
+<Route path="/MinorTransactionList" element={<FinanceLayout><MinorTransactionList /></FinanceLayout>} /> 
+<Route path="/FinancialTransactions" element={<FinanceLayout><FinancialTransactions /></FinanceLayout>} /> 
+<Route path="/FinanceInvoice" element={<FinanceLayout><FinanceInvoice /></FinanceLayout>} />
+<Route path="/FinanceAnalysis" element={<FinanceLayout><FinanceAnalysis /></FinanceLayout>} />
+
        
 
 

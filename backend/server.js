@@ -77,6 +77,11 @@ const maintenanceRouter = require("./Routes/maintenanceRoute.js");
 const inventoryRouter = require("./Routes/inventoryRoute.js");
 const usageRouter = require("./Routes/usageRoute.js");
 
+const minorTransactionRoutes = require("./routes/minorTransactionRoutes");
+const financialTransactionRoutes = require("./routes/financialTransactionRoutes");
+const invoiceRoutes = require('./routes/invoiceRoutes');
+
+
 
 // Route Usage
 app.use("/api/auth", authRoutes);
@@ -93,6 +98,12 @@ app.use("/api/feedback", feedbackRouter);
 app.use("/inventories", inventoryRouter);
 app.use("/maintenance", maintenanceRouter);
 app.use("/usage", usageRouter); 
+
+app.use("/api/minor-transactions", minorTransactionRoutes);
+app.use("/api/transactions", financialTransactionRoutes);
+app.use('/api/invoices', invoiceRoutes);
+
+
 
 // Test Route
 app.get("/", (req, res) => {

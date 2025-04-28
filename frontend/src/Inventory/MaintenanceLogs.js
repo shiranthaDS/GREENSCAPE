@@ -10,6 +10,7 @@ applyPlugin(jsPDF);
 const MaintenanceLogs = () => {
     const [logs, setLogs] = useState([]);
     const [formData, setFormData] = useState({
+        _id: '', // Added to track the ID of the record being updated
         itemId: '',
         itemName: '',
         maintenanceType: '',
@@ -19,14 +20,13 @@ const MaintenanceLogs = () => {
         nextMaintenanceDate: '',
         status: ''
     });
-    //To store state for form validation errors
+    const [isUpdating, setIsUpdating] = useState(false); // Track if we're in update mode
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
         fetchLogs();
     }, []);
 
-    //fetch maintenance logs from the server
     const fetchLogs = async () => {
         try {
             const response = await axios.get('http://localhost:5000/maintenance');
@@ -36,7 +36,6 @@ const MaintenanceLogs = () => {
         }
     };
 
-    //handle form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -89,39 +88,55 @@ const MaintenanceLogs = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    //handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateForm()) return; //don't submit if validation fails
+        if (!validateForm()) return;
 
         try {
-            await axios.post('http://localhost:5000/maintenance', formData);
+            if (isUpdating) {
+                // If we're updating, make a PUT request
+                await axios.put(`http://localhost:5000/maintenance/${formData._id}`, formData);
+            } else {
+                // Otherwise, make a POST request to create a new record
+                await axios.post('http://localhost:5000/maintenance', formData);
+            }
+            
             fetchLogs();
-            //reset form after successful submission
-            setFormData({
-                itemId: '',
-                itemName: '',
-                maintenanceType: '',
-                maintenanceDate: '',
-                performedBy: '',
-                cost: '',
-                nextMaintenanceDate: '',
-                status: ''
-            });
-            setErrors({});
+            resetForm();
         } catch (error) {
-            console.error('Error adding maintenance log:', error);
+            console.error('Error submitting maintenance log:', error);
         }
     };
 
-    const handleUpdate = async (id) => {
-        if (!validateForm()) return;
-        try {
-            await axios.put(`http://localhost:5000/maintenance/${id}`, formData);
-            fetchLogs();
-        } catch (error) {
-            console.error('Error updating maintenance log:', error);
-        }
+    const resetForm = () => {
+        setFormData({
+            _id: '',
+            itemId: '',
+            itemName: '',
+            maintenanceType: '',
+            maintenanceDate: '',
+            performedBy: '',
+            cost: '',
+            nextMaintenanceDate: '',
+            status: ''
+        });
+        setIsUpdating(false);
+        setErrors({});
+    };
+
+    const populateFormForUpdate = (log) => {
+        setFormData({
+            _id: log._id, // Include the ID for updating
+            itemId: log.itemId,
+            itemName: log.itemName,
+            maintenanceType: log.maintenanceType,
+            maintenanceDate: log.maintenanceDate.split('T')[0], // Format date for input
+            performedBy: log.performedBy,
+            cost: log.cost,
+            nextMaintenanceDate: log.nextMaintenanceDate ? log.nextMaintenanceDate.split('T')[0] : '',
+            status: log.status
+        });
+        setIsUpdating(true);
     };
 
     const handleDelete = async (id) => {
@@ -133,23 +148,9 @@ const MaintenanceLogs = () => {
         }
     };
 
-    //populate form fields with data for updating
-    const populateFormForUpdate = (log) => {
-        setFormData({
-            itemId: log.itemId,
-            itemName: log.itemName,
-            maintenanceType: log.maintenanceType,
-            maintenanceDate: log.maintenanceDate,
-            performedBy: log.performedBy,
-            cost: log.cost,
-            nextMaintenanceDate: log.nextMaintenanceDate,
-            status: log.status
-        });
-    };
-
     const generateReport = () => {
         const doc = new jsPDF();
-        const logoUrl =  "https://res.cloudinary.com/dwcsi1wfq/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1742364968/greenscape_ykjyib.jpg";
+        const logoUrl = "https://res.cloudinary.com/dwcsi1wfq/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1742364968/greenscape_ykjyib.jpg";
         const img = new Image();
         img.src = logoUrl;
 
@@ -236,7 +237,6 @@ const MaintenanceLogs = () => {
                     {errors.itemName && <span className="error-message">{errors.itemName}</span>}
                 </div>
 
-{/* maintenance type dropdown */}
                 <div className="form-group">
                     <select
                         name="maintenanceType"
@@ -315,7 +315,16 @@ const MaintenanceLogs = () => {
                     {errors.status && <span className="error-message">{errors.status}</span>}
                 </div>
 
-                <button type="submit" className="form-submit-btn">Add Log</button>
+                <div className="form-actions">
+                    <button type="submit" className="form-submit-btn">
+                        {isUpdating ? 'Update Log' : 'Add Log'}
+                    </button>
+                    {isUpdating && (
+                        <button type="button" className="cancel-btn" onClick={resetForm}>
+                            Cancel
+                        </button>
+                    )}
+                </div>
             </form>
 
             <button className="generate-report-btn" onClick={generateReport}>
@@ -368,298 +377,318 @@ const MaintenanceLogs = () => {
                 </table>
             </div>
 
-
             <style jsx>{`
+                /* Main Container */
+                .maintenance-logs-container {
+                    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                    padding: 2rem;
+                    margin-left: 280px;
+                    background-color: #f8f9fa;
+                    min-height: 100vh;
+                    transition: all 0.3s ease;
+                }
 
+                /* Title Styling */
+                .maintenance-title {
+                    text-align: center;
+                    color: #1B5E20;
+                    margin-bottom: 2rem;
+                    font-size: 2.2rem;
+                    font-weight: 600;
+                    position: relative;
+                    padding-bottom: 0.8rem;
+                }
 
-/* Main Container */
-.maintenance-logs-container {
-  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  padding: 2rem;
-  margin-left: 280px;
-  background-color: #f8f9fa;
-  min-height: 100vh;
-  transition: all 0.3s ease;
-}
+                .maintenance-title::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 120px;
+                    height: 4px;
+                    background: linear-gradient(90deg, #28a745, #218838);
+                    border-radius: 2px;
+                }
 
-/* Title Styling */
-.maintenance-title {
-  text-align: center;
-  color: #1B5E20;
-  margin-bottom: 2rem;
-  font-size: 2.2rem;
-  font-weight: 600;
-  position: relative;
-  padding-bottom: 0.8rem;
-}
+                /* Form Styling */
+                .maintenance-form {
+                    margin-bottom: 2rem;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                    gap: 1.2rem;
+                    background: white;
+                    padding: 1.8rem;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                }
 
-.maintenance-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 4px;
-  background: linear-gradient(90deg, #28a745, #218838);
-  border-radius: 2px;
-}
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.3rem;
+                }
 
-/* Form Styling */
-.maintenance-form {
-  margin-bottom: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.2rem;
-  background: white;
-  padding: 1.8rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
+                .maintenance-form input,
+                .maintenance-form select {
+                    padding: 0.8rem 1rem;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 8px;
+                    font-size: 0.95rem;
+                    transition: all 0.25s ease;
+                    background-color: #f8f9fa;
+                }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
+                .maintenance-form input:focus,
+                .maintenance-form select:focus {
+                    outline: none;
+                    border-color: #28a745;
+                    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+                    background-color: white;
+                }
 
-.maintenance-form input,
-.maintenance-form select {
-  padding: 0.8rem 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  transition: all 0.25s ease;
-  background-color: #f8f9fa;
-}
+                .error-input {
+                    border-color: #dc3545 !important;
+                    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+                }
 
-.maintenance-form input:focus,
-.maintenance-form select:focus {
-  outline: none;
-  border-color: #28a745;
-  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
-  background-color: white;
-}
+                .form-actions {
+                    grid-column: 1 / -1;
+                    display: flex;
+                    gap: 1rem;
+                }
 
-.error-input {
-  border-color: #dc3545 !important;
-  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
-}
+                .form-submit-btn {
+                    flex: 1;
+                    padding: 0.85rem;
+                    background: linear-gradient(135deg, #28a745, #218838);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                }
 
-.form-submit-btn {
-  grid-column: 1 / -1;
-  padding: 0.85rem;
-  background: linear-gradient(135deg, #28a745, #218838);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
+                .form-submit-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    background: linear-gradient(135deg, #218838, #1e7e34);
+                }
 
-.form-submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(135deg, #218838, #1e7e34);
-}
+                .cancel-btn {
+                    flex: 1;
+                    padding: 0.85rem;
+                    background: linear-gradient(135deg, #6c757d, #5a6268);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                }
 
-/* Generate Report Button */
-.generate-report-btn {
-  display: block;
-  margin: 0 auto 2rem;
-  padding: 0.85rem 1.8rem;
-  background: linear-gradient(135deg, #218838, #1e7e34);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-}
+                .cancel-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    background: linear-gradient(135deg, #5a6268, #495056);
+                }
 
-.generate-report-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(135deg, #218838, #1e7e34);
-}
+                /* Generate Report Button */
+                .generate-report-btn {
+                    display: block;
+                    margin: 0 auto 2rem;
+                    padding: 0.85rem 1.8rem;
+                    background: linear-gradient(135deg, #218838, #1e7e34);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    position: relative;
+                    overflow: hidden;
+                }
 
-.generate-report-btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.15),
-    transparent
-  );
-  transition: 0.5s;
-}
+                .generate-report-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    background: linear-gradient(135deg, #218838, #1e7e34);
+                }
 
-.generate-report-btn:hover::after {
-  left: 100%;
-}
+                .generate-report-btn::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(
+                        90deg,
+                        transparent,
+                        rgba(255, 255, 255, 0.15),
+                        transparent
+                    );
+                    transition: 0.5s;
+                }
 
-/* Table Styling */
-.table-wrapper {
-  overflow-x: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  background: white;
-  padding: 0.5rem;
-}
+                .generate-report-btn:hover::after {
+                    left: 100%;
+                }
 
-.maintenance-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin: 0;
-}
+                /* Table Styling */
+                .table-wrapper {
+                    overflow-x: auto;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    background: white;
+                    padding: 0.5rem;
+                }
 
-.maintenance-table th {
-  background: linear-gradient(135deg, #343a40, #23272b);
-  color: white;
-  padding: 1rem;
-  text-align: left;
-  font-weight: 500;
-  position: sticky;
-  top: 0;
-}
+                .maintenance-table {
+                    width: 100%;
+                    border-collapse: separate;
+                    border-spacing: 0;
+                    margin: 0;
+                }
 
-.maintenance-table td {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.2s ease;
-}
+                .maintenance-table th {
+                    background: linear-gradient(135deg, #343a40, #23272b);
+                    color: white;
+                    padding: 1rem;
+                    text-align: left;
+                    font-weight: 500;
+                    position: sticky;
+                    top: 0;
+                }
 
-.maintenance-table tr:last-child td {
-  border-bottom: none;
-}
+                .maintenance-table td {
+                    padding: 0.85rem 1rem;
+                    border-bottom: 1px solid #f0f0f0;
+                    transition: background-color 0.2s ease;
+                }
 
-.maintenance-table tr:nth-child(even) {
-  background-color: #fafafa;
-}
+                .maintenance-table tr:last-child td {
+                    border-bottom: none;
+                }
 
-.maintenance-table tr:hover td {
-  background-color: #f5f5f5;
-}
+                .maintenance-table tr:nth-child(even) {
+                    background-color: #fafafa;
+                }
 
-.update-btn {
-  padding: 0.6rem 1rem;
-  margin-right: 0.6rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  background: linear-gradient(135deg, #ffc107, #e0a800);
-  color: #212529;
-}
+                .maintenance-table tr:hover td {
+                    background-color: #f5f5f5;
+                }
 
-.update-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, #e0a800, #d39e00);
-}
+                .update-btn {
+                    padding: 0.6rem 1rem;
+                    margin-right: 0.6rem;
+                    border: none;
+                    border-radius: 6px;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.25s ease;
+                    background: linear-gradient(135deg, #ffc107, #e0a800);
+                    color: #212529;
+                }
 
-.delete-btn {
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  background: linear-gradient(135deg, #dc3545, #c82333);
-  color: white;
-}
+                .update-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    background: linear-gradient(135deg, #e0a800, #d39e00);
+                }
 
-.delete-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, #c82333, #bd2130);
-}
+                .delete-btn {
+                    padding: 0.6rem 1rem;
+                    border: none;
+                    border-radius: 6px;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.25s ease;
+                    background: linear-gradient(135deg, #dc3545, #c82333);
+                    color: white;
+                }
 
-/* Error Styling */
-.error-message {
-  color: #dc3545;
-  font-size: 0.85rem;
-  margin-top: 0.3rem;
-  display: block;
-}
+                .delete-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    background: linear-gradient(135deg, #c82333, #bd2130);
+                }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+                /* Error Styling */
+                .error-message {
+                    color: #dc3545;
+                    font-size: 0.85rem;
+                    margin-top: 0.3rem;
+                    display: block;
+                }
 
-.maintenance-table tr {
-  animation: fadeIn 0.35s ease forwards;
-}
+                /* Animations */
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(12px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
 
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .maintenance-logs-container {
-    margin-left: 0;
-    padding: 1.5rem;
-  }
-}
+                .maintenance-table tr {
+                    animation: fadeIn 0.35s ease forwards;
+                }
 
-@media (max-width: 768px) {
-  .maintenance-form {
-    grid-template-columns: 1fr;
-    padding: 1.5rem;
-  }
-  
-  .maintenance-title {
-    font-size: 1.8rem;
-  }
-  
-  .maintenance-table th,
-  .maintenance-table td {
-    padding: 0.75rem;
-    font-size: 0.9rem;
-  }
-}
+                /* Responsive Design */
+                @media (max-width: 1200px) {
+                    .maintenance-logs-container {
+                        margin-left: 0;
+                        padding: 1.5rem;
+                    }
+                }
 
-/* Custom Scrollbar */
-.table-wrapper::-webkit-scrollbar {
-  height: 8px;
-}
+                @media (max-width: 768px) {
+                    .maintenance-form {
+                        grid-template-columns: 1fr;
+                        padding: 1.5rem;
+                    }
+                    
+                    .maintenance-title {
+                        font-size: 1.8rem;
+                    }
+                    
+                    .maintenance-table th,
+                    .maintenance-table td {
+                        padding: 0.75rem;
+                        font-size: 0.9rem;
+                    }
 
-.table-wrapper::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
+                    .form-actions {
+                        flex-direction: column;
+                    }
+                }
 
-.table-wrapper::-webkit-scrollbar-thumb {
-  background: #28a745;
-  border-radius: 4px;
-}
+                /* Custom Scrollbar */
+                .table-wrapper::-webkit-scrollbar {
+                    height: 8px;
+                }
 
-.table-wrapper::-webkit-scrollbar-thumb:hover {
-  background: #218838;
-}
+                .table-wrapper::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                    border-radius: 4px;
+                }
 
-            
-            
+                .table-wrapper::-webkit-scrollbar-thumb {
+                    background: #28a745;
+                    border-radius: 4px;
+                }
+
+                .table-wrapper::-webkit-scrollbar-thumb:hover {
+                    background: #218838;
+                }
             `}</style>
-
-
-
-
         </div>
     );
 };
