@@ -217,7 +217,7 @@ const FinancialTransactions = () => {
   const generatePDFReport = () => {
     const doc = new jsPDF();
 
-    const logoUrl = '/images/GSlogo.jpeg';
+    const logoUrl = '/image/logo.jpeg';
     const img = new Image();
     img.src = logoUrl;
 

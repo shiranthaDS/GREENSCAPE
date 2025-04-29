@@ -181,7 +181,7 @@ const FinanceInvoice = () => {
         
         try {
             // Load the logo image (make sure it's in the public folder)
-            const logoUrl = '/images/GSlogo.jpeg'; // Path from public folder
+            const logoUrl = '/image/logo.jpeg'; // Path from public folder
             const img = new Image();
             img.src = logoUrl;
             

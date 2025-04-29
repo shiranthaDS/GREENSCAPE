@@ -158,7 +158,7 @@ const UsageReports = () => {
 
     const generatePDFReport = () => {
         const doc = new jsPDF();
-        const logoUrl = '/itplogo.jpeg';
+        const logoUrl = 'image/logo.jpeg';
         const img = new Image();
         img.src = logoUrl;
 
