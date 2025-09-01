@@ -19,6 +19,7 @@ dotenv.config();
 
 // Initialize the app
 const app = express();
+// Prefer port 5000 to match frontend hardcoded URLs
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -72,10 +73,11 @@ const workRouter = require("./routes/work");
 const jobRouter = require("./routes/jobs");
 const jobApplicationRouter = require("./routes/JobApplication");
 const feedbackRouter = require("./routes/feedbackRoutes");
-const maintenanceRouter = require("./Routes/maintenanceRoute.js");
+// Normalize to lowercase folder path to avoid case-sensitivity issues
+const maintenanceRouter = require("./routes/maintenanceRoute.js");
 
-const inventoryRouter = require("./Routes/inventoryRoute.js");
-const usageRouter = require("./Routes/usageRoute.js");
+const inventoryRouter = require("./routes/inventoryRoute.js");
+const usageRouter = require("./routes/usageRoute.js");
 
 const minorTransactionRoutes = require("./routes/minorTransactionRoutes");
 const financialTransactionRoutes = require("./routes/financialTransactionRoutes");
@@ -84,6 +86,7 @@ const invoiceRoutes = require('./routes/invoiceRoutes');
 
 
 // Route Usage
+// Primary API mounts
 app.use("/api/auth", authRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/appointments", appointmentRoutes);
@@ -92,22 +95,40 @@ app.use("/api/task", taskRouter);
 app.use("/api/work", workRouter);
 app.use("/api/jobs", jobRouter);
 app.use("/api/jobApplications", jobApplicationRouter);
-app.use("/api/feedback", feedbackRouter); 
-
-
-app.use("/inventories", inventoryRouter);
-app.use("/maintenance", maintenanceRouter);
-app.use("/usage", usageRouter); 
-
+app.use("/api/feedback", feedbackRouter);
+app.use("/api/inventories", inventoryRouter);
+app.use("/api/maintenance", maintenanceRouter);
+app.use("/api/usage", usageRouter);
 app.use("/api/minor-transactions", minorTransactionRoutes);
 app.use("/api/transactions", financialTransactionRoutes);
-app.use('/api/invoices', invoiceRoutes);
+app.use("/api/invoices", invoiceRoutes);
+
+// Backward-compatibility mounts (no /api prefix) for older frontend calls
+app.use("/employee", employeeRouter);
+app.use("/task", taskRouter);
+app.use("/work", workRouter);
+app.use("/jobs", jobRouter);
+app.use("/jobApplications", jobApplicationRouter);
+app.use("/feedback", feedbackRouter);
+app.use("/inventories", inventoryRouter);
+app.use("/maintenance", maintenanceRouter);
+app.use("/usage", usageRouter);
 
 
 
 // Test Route
 app.get("/", (req, res) => {
   res.send("🌿 MERN Garden & Landscape API is running...");
+});
+
+// Simple health/check endpoint
+app.get("/health", (req, res) => {
+  res.json({
+    status: "ok",
+    port: PORT,
+    mongo: mongoose.connection.readyState === 1 ? "connected" : "not-connected",
+    time: new Date().toISOString(),
+  });
 });
 
 // Start Server
